@@ -1,91 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Industrial Vision System | Naman Sharma</title>
+  <title>Industrial Vision</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <div class="container">
 
-  <!-- HERO -->
-  <span class="badge">Industrial Computer Vision</span>
-  <h1>Vision Inspection System</h1>
+<span class="badge">INDUSTRIAL COMPUTER VISION</span>
+<h1>Vision Inspection System</h1>
+
+<p>
+  A factory-oriented OCR and inspection system designed for unstable lighting,
+  motion, and alignment — not lab demos.
+</p>
+
+<div class="section card">
+  <h2>Why Vision Fails in Factories</h2>
   <p>
-    A deterministic, factory-oriented vision inspection system designed for
-    noisy production environments — not lab demos.
+    Glare, vibration, and background noise break naive vision pipelines.
+    Industrial systems demand determinism, not just accuracy.
   </p>
-
-  <!-- PROBLEM -->
-  <div class="section card">
-    <h2>Why Vision Fails in Factories</h2>
-    <p>
-      Most computer-vision pipelines collapse on the shop floor due to glare,
-      motion blur, alignment shifts, and uncontrolled backgrounds.
-    </p>
-    <p>
-      Industrial systems demand <b>repeatability</b>, <b>predictable timing</b>,
-      and <b>clear decisions</b> — not just accuracy scores.
-    </p>
-  </div>
-
-  <!-- SYSTEM FLOW -->
-  <div class="section">
-    <h2>System Architecture</h2>
-    <div class="grid">
-      <div class="card">Camera captures frame</div>
-      <div class="card">ROI locked</div>
-      <div class="card">OCR / inspection inside ROI</div>
-      <div class="card">Validation logic</div>
-      <div class="card ok">OK / NG decision</div>
-      <div class="card">Logs + timestamps</div>
-    </div>
-  </div>
-
-  <!-- WHAT I BUILT -->
-  <div class="section card">
-    <h2>What I Engineered</h2>
-    <ul class="list">
-      <li>ROI-restricted inspection to suppress false positives</li>
-      <li>PaddleOCR integrated as a signal source, not final truth</li>
-      <li>Strict validation rules for production stability</li>
-      <li>Deterministic OK / NG decision pipeline</li>
-      <li>Traceable logging for audits and debugging</li>
-    </ul>
-  </div>
-
-  <!-- FAILURES -->
-  <div class="section card">
-    <h2>Failure-First Engineering</h2>
-    <ul class="list">
-      <li class="fail">Glare → OCR instability → ROI constraints</li>
-      <li class="fail">Background text → false positives → validation filters</li>
-      <li class="fail">Latency spikes → full frame OCR → region-only processing</li>
-    </ul>
-    <p>
-      These failures shaped the system more than initial success.
-    </p>
-  </div>
-
-  <!-- PRODUCTION -->
-  <div class="section card">
-    <h2>Why This Is Production-Oriented</h2>
-    <ul class="list">
-      <li>Single decision per cycle</li>
-      <li>Fail-safe logic on uncertainty</li>
-      <li>Continuous operation mindset</li>
-      <li>PLC-compatible OK / NG signaling</li>
-    </ul>
-
-    <a class="button" href="simulator.html">
-      View Inspection Simulator →
-    </a>
-  </div>
-
-  <a class="footer-link" href="index.html">← Back to Home</a>
-
 </div>
 
+<div class="section">
+  <h2>System Architecture</h2>
+  <div class="grid">
+    <div class="card flow">Camera Capture</div>
+    <div class="card flow">ROI Lock</div>
+    <div class="card flow">OCR / Inspection</div>
+    <div class="card flow green">OK / NG Decision</div>
+    <div class="card flow purple">Logs + Traceability</div>
+  </div>
+</div>
+
+<div class="section card">
+  <h2>Failure-First Engineering</h2>
+  <ul class="list">
+    <li class="fail">Glare → OCR instability → ROI constraints</li>
+    <li class="fail">False positives → validation rules</li>
+    <li class="fail">Latency → region-only processing</li>
+  </ul>
+</div>
+
+<a class="button" href="simulator.html">View Inspection Simulator →</a>
+
+</div>
 </body>
 </html>
