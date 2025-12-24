@@ -1,57 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Naman | Robotics & Vision</title>
+  <title>Naman Sharma | Robotics & Vision Engineer</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <div class="container">
 
-  <!-- HERO SECTION -->
+  <!-- ================= HERO ================= -->
   <div class="section grid" style="align-items:center;">
 
-    <!-- LEFT: TEXT -->
+    <!-- TEXT -->
     <div>
       <span class="badge">ENGINEERING PORTFOLIO</span>
       <h1>Naman Sharma</h1>
 
-      <p>
-        Mechatronics engineer focused on building
-        <b>industrial computer-vision</b> and <b>robotics systems</b>
-        that behave like real factory software.
+      <p style="font-size:18px;">
+        I design and build <b>industrial computer-vision</b> and
+        <b>robotics systems</b> that behave like
+        <b>real factory software</b> — not academic demos.
       </p>
 
-      <p>
-        Experience with vision inspection, OCR systems, automation logic,
-        ROS2-based robotics, and production-oriented system design.
-      </p>
-
-      <div style="margin-top:24px;">
-        <a class="button" href="Assets/Copy of Resume (1).pdf" target="_blank">
-          Download Resume 📄
+      <div style="margin-top:28px;">
+        <a class="button" href="vision.html">
+          Explore Projects →
         </a>
 
-        <a class="button" href="vision.html" style="margin-left:12px;">
-          View My Work →
+        <a class="button"
+           href="assets/resume.pdf"
+           target="_blank"
+           style="margin-left:12px; background:linear-gradient(90deg,#38bdf8,#a78bfa);">
+          Download Resume 📄
         </a>
       </div>
     </div>
 
-    <!-- RIGHT: PHOTO -->
+    <!-- PHOTO -->
     <div class="card" style="text-align:center;">
       <img
-        src="Assets/naman.jpg"
+        src="assets/naman.jpg"
         alt="Naman Sharma"
-        style="
-          width:200px;
-          height:200px;
-          border-radius:50%;
-          object-fit:cover;
-          border:3px solid rgba(255,255,255,0.2);
-        "
+        style="width:200px;height:200px;border-radius:50%;object-fit:cover;"
       >
-      <p style="margin-top:12px; color:var(--muted);">
+      <p style="margin-top:12px;color:var(--muted);">
         Mechatronics Engineer<br>
         Robotics • Vision • Automation
       </p>
@@ -59,93 +51,72 @@
 
   </div>
 
-  <!-- ABOUT ME -->
+  <!-- ================= WHAT MAKES THIS DIFFERENT ================= -->
+  <div class="section">
+    <h2>What You’ll Find Here</h2>
+
+    <div class="grid">
+      <div class="card flow green">
+        Industrial vision systems with ROI-based OCR & OK/NG logic
+      </div>
+
+      <div class="card flow">
+        Vision + automation integration (PLC-style thinking)
+      </div>
+
+      <div class="card flow purple">
+        Robotics projects built with ROS2 & simulation-first design
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= PROOF TEASERS ================= -->
+  <div class="section">
+    <h2>See It in Action</h2>
+
+    <div class="grid">
+
+      <a href="vision.html" class="card flow green">
+        📂 Project Case Studies<br>
+        <span style="color:var(--muted);font-size:14px;">
+          Real industrial problem → solution breakdown
+        </span>
+      </a>
+
+      <a href="simulator.html" class="card flow">
+        🧪 Inspection Simulator<br>
+        <span style="color:var(--muted);font-size:14px;">
+          Factory-style dashboard & decision flow
+        </span>
+      </a>
+
+      <a href="walkthrough.html" class="card flow purple">
+        🎥 Live System Walkthrough<br>
+        <span style="color:var(--muted);font-size:14px;">
+          Real system demo (video + live on request)
+        </span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ================= ABOUT (SHORT) ================= -->
   <div class="section card">
     <h2>About Me</h2>
     <p>
-      I enjoy working at the intersection of hardware and software, especially
-      where computer vision meets industrial automation. My approach focuses on
-      system reliability, deterministic behavior, and real-world constraints.
-    </p>
-
-    <p>
-      I prefer building systems end-to-end — from perception and decision logic
-      to simulation and operator-facing interfaces.
+      I enjoy building end-to-end systems where hardware meets software —
+      from perception and decision logic to operator-facing interfaces.
+      My focus is always on reliability, determinism, and real-world constraints.
     </p>
   </div>
 
-  <!-- QUICK HIGHLIGHTS -->
-  <div class="section">
-    <h2>What I Work With</h2>
-    <div class="grid">
-      <div class="card flow green">Industrial Vision & OCR</div>
-      <div class="card flow">Vision + PLC / Automation</div>
-      <div class="card flow purple">Robotics & ROS2</div>
-      <div class="card flow">Simulation-First Design</div>
-    </div>
-  </div>
-
-
-  <!-- The commented code os optional either by clicking my work button or display it on index page>
-  <!-- NAVIGATION 
-  <div class="section">
-    <h2>Explore My Work</h2>
-    <div class="grid">
-      <a href="vision.html" class="card flow green">Computer Vision Systems</a>
-      <a href="robotics.html" class="card flow purple">Robotics Projects</a>
-      <a href="automation.html" class="card flow">Vision + Automation</a>
-    </div>
-  </div>-->
-
-
-  <!-- LIVE WALKTHROUGH -->
-<div class="section card">
-
-  <h2>Live System Walkthrough</h2>
-
-  <p style="color:var(--muted); max-width:800px;">
-    Developed and demonstrated automated color sorting and pick-and-place workflows with Dobot Magician using ROA2, Python, and Raspberry Pi.
-
-  </p>
-
-  <video
-    controls
-    style="
-      width:100%;
-      max-width:900px;
-      margin-top:16px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,0.2);
-    "
-  >
-    <source src="WhatsApp Video 2025-12-24 at 1.12.20 PM.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-  <video
-    controls
-    style="
-      width:100%;
-      max-width:900px;
-      margin-top:16px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,0.2);
-    "
-  >
-    <source src="VID-20251224-WA0000.mp4"video/mp4">
-    <source src="VID-20251224-WA0000.mp4"video/mp4">
-    Your browser does not support the video tag.
-  </video>
-
-  <!-- FOOTER -->
+  <!-- ================= FOOTER ================= -->
   <div class="section" style="margin-top:80px;">
     <p style="color:var(--muted);">
-      📄 <a href="Assets/Copy of Resume (1).pdf" target="_blank">Download Resume</a> ·
-      🎥 Live system walkthrough 
+      🎥 Live system walkthrough available on request ·
+      📄 <a href="assets/resume.pdf" target="_blank">Resume</a>
     </p>
   </div>
-
-</div>
-
 
 </div>
 
