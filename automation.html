@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vision and Automation Integration | Naman Sharma</title>
+</head>
+<body>
+
+    <h1>Vision–Automation Integration</h1>
+    <p>
+        Industrial vision systems are rarely standalone. In a production line,
+        inspection results must be communicated to automation controllers in a
+        deterministic and reliable manner.
+    </p>
+
+    <hr>
+
+    <!-- ================= PROBLEM ================= -->
+    <h2>Automation Context</h2>
+    <p>
+        In real manufacturing environments, vision systems operate as one part
+        of a larger control system. Inspection results must arrive within a
+        defined cycle time and trigger downstream actions without ambiguity.
+    </p>
+
+    <p>
+        Any unstable or non-deterministic behavior can lead to incorrect rejects,
+        line stoppages, or quality escapes.
+    </p>
+
+    <hr>
+
+    <!-- ================= SYSTEM FLOW ================= -->
+    <h2>System-Level Flow</h2>
+    <ul>
+        <li>Part reaches inspection position</li>
+        <li>Automation system triggers image capture</li>
+        <li>Vision system processes ROI and validates result</li>
+        <li>Final OK / NG decision is generated</li>
+        <li>Decision signal is sent to automation controller</li>
+        <li>Controller executes accept / reject / stop logic</li>
+        <li>Result is logged for traceability</li>
+    </ul>
+
+    <p>
+        The vision system behaves as a deterministic decision module rather than
+        an isolated AI component.
+    </p>
+
+    <hr>
+
+    <!-- ================= DESIGN CONSIDERATIONS ================= -->
+    <h2>Design Considerations</h2>
+    <ul>
+        <li>Clear separation between detection and decision logic</li>
+        <li>Single inspection result per cycle</li>
+        <li>Fail-safe behavior on uncertain outputs</li>
+        <li>Predictable response time</li>
+        <li>Simple OK / NG signaling for automation compatibility</li>
+    </ul>
+
+    <hr>
+
+    <!-- ================= MY ROLE ================= -->
+    <h2>My Contribution</h2>
+    <ul>
+        <li>Designed vision outputs assuming real PLC constraints</li>
+        <li>Ensured OK / NG signals are unambiguous</li>
+        <li>Considered timing and inspection cycle behavior</li>
+        <li>Focused on stability over raw algorithm performance</li>
+    </ul>
+
+    <hr>
+
+    <!-- ================= SIMULATOR LINK ================= -->
+    <h2>Inspection Simulator Reference</h2>
+    <p>
+        The industrial inspection simulator demonstrates how vision outputs,
+        inspection states, and logs would appear to an automation controller
+        during continuous operation.
+    </p>
+    <p>
+        <a href="simulator.html">View Industrial Vision Inspection Simulator</a>
+    </p>
+
+    <hr>
+
+    <p>
+        <a href="index.html">← Back to Home</a>
+    </p>
+
+</body>
+</html>
