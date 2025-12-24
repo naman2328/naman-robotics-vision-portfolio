@@ -1,127 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Industrial Vision Inspection | Naman Sharma</title>
+  <meta charset="UTF-8">
+  <title>Industrial Vision System | Naman Sharma</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <h1>Industrial Vision Inspection System</h1>
+<div class="container">
+
+  <!-- HERO -->
+  <span class="badge">Industrial Computer Vision</span>
+  <h1>Vision Inspection System</h1>
+  <p>
+    A deterministic, factory-oriented vision inspection system designed for
+    noisy production environments — not lab demos.
+  </p>
+
+  <!-- PROBLEM -->
+  <div class="section card">
+    <h2>Why Vision Fails in Factories</h2>
     <p>
-        Camera-based OCR and visual inspection system designed for industrial
-        environments where reliability, repeatability, and deterministic
-        decisions matter more than raw accuracy metrics.
-    </p>
-
-    <hr>
-
-    <!-- ================= PROBLEM ================= -->
-    <h2>Problem Statement</h2>
-    <p>
-        In manufacturing environments, visual inspection must operate continuously
-        under non-ideal conditions such as variable lighting, glare, motion blur,
-        and part misalignment.
+      Most computer-vision pipelines collapse on the shop floor due to glare,
+      motion blur, alignment shifts, and uncontrolled backgrounds.
     </p>
     <p>
-        Manual inspection is slow and inconsistent, while naive computer-vision
-        pipelines often fail due to false positives, unstable OCR results, and
-        lack of validation logic. A usable industrial vision system must therefore
-        behave like deterministic software, not a one-off demo.
+      Industrial systems demand <b>repeatability</b>, <b>predictable timing</b>,
+      and <b>clear decisions</b> — not just accuracy scores.
     </p>
+  </div>
 
-    <hr>
+  <!-- SYSTEM FLOW -->
+  <div class="section">
+    <h2>System Architecture</h2>
+    <div class="grid">
+      <div class="card">Camera captures frame</div>
+      <div class="card">ROI locked</div>
+      <div class="card">OCR / inspection inside ROI</div>
+      <div class="card">Validation logic</div>
+      <div class="card ok">OK / NG decision</div>
+      <div class="card">Logs + timestamps</div>
+    </div>
+  </div>
 
-    <!-- ================= SYSTEM OVERVIEW ================= -->
-    <h2>System Overview</h2>
-    <p>The inspection system follows a fixed and predictable pipeline:</p>
-    <ul>
-        <li>Industrial camera captures the frame</li>
-        <li>Region of Interest (ROI) is locked to avoid irrelevant areas</li>
-        <li>OCR / visual inspection runs only inside the ROI</li>
-        <li>Detected output is validated against expected patterns</li>
-        <li>Final OK / NG decision is generated</li>
-        <li>Inspection result and timestamp are logged</li>
+  <!-- WHAT I BUILT -->
+  <div class="section card">
+    <h2>What I Engineered</h2>
+    <ul class="list">
+      <li>ROI-restricted inspection to suppress false positives</li>
+      <li>PaddleOCR integrated as a signal source, not final truth</li>
+      <li>Strict validation rules for production stability</li>
+      <li>Deterministic OK / NG decision pipeline</li>
+      <li>Traceable logging for audits and debugging</li>
     </ul>
+  </div>
 
-    <p>
-        This flow ensures stable performance and predictable behavior on a
-        production line.
-    </p>
-
-    <hr>
-
-    <!-- ================= WHAT I BUILT ================= -->
-    <h2>What I Built</h2>
-    <ul>
-        <li>Designed ROI-based inspection to minimize false detections</li>
-        <li>Integrated PaddleOCR for text recognition inside constrained regions</li>
-        <li>Implemented validation logic instead of trusting raw OCR output</li>
-        <li>Built OK / NG decision logic suitable for automation systems</li>
-        <li>Added timestamped logging for inspection traceability</li>
+  <!-- FAILURES -->
+  <div class="section card">
+    <h2>Failure-First Engineering</h2>
+    <ul class="list">
+      <li class="fail">Glare → OCR instability → ROI constraints</li>
+      <li class="fail">Background text → false positives → validation filters</li>
+      <li class="fail">Latency spikes → full frame OCR → region-only processing</li>
     </ul>
-
     <p>
-        The focus was not on maximizing OCR accuracy in isolation, but on building
-        a complete inspection pipeline that behaves reliably in real conditions.
+      These failures shaped the system more than initial success.
     </p>
+  </div>
 
-    <hr>
-
-    <!-- ================= FAILURE FIRST ================= -->
-    <h2>What Failed and How It Was Fixed</h2>
-    <ul>
-        <li>
-            <strong>OCR instability due to glare:</strong>
-            Reduced inspection area to a fixed ROI and avoided reflective regions.
-        </li>
-        <li>
-            <strong>False positives from background text:</strong>
-            Introduced strict validation rules and rejection logic.
-        </li>
-        <li>
-            <strong>Frame drops and latency:</strong>
-            Limited processing to only required regions instead of full-frame OCR.
-        </li>
-        <li>
-            <strong>Unreliable OCR strings:</strong>
-            Treated OCR output as an input signal, not as a final truth.
-        </li>
-    </ul>
-
-    <p>
-        These changes shifted the system from a fragile demo to a predictable,
-        production-oriented inspection pipeline.
-    </p>
-
-    <hr>
-
-    <!-- ================= PRODUCTION READINESS ================= -->
+  <!-- PRODUCTION -->
+  <div class="section card">
     <h2>Why This Is Production-Oriented</h2>
-    <ul>
-        <li>Deterministic OK / NG decision logic</li>
-        <li>Clear separation between detection and validation</li>
-        <li>Continuous operation mindset</li>
-        <li>Traceable inspection results</li>
-        <li>Designed for integration with PLC or automation controllers</li>
+    <ul class="list">
+      <li>Single decision per cycle</li>
+      <li>Fail-safe logic on uncertainty</li>
+      <li>Continuous operation mindset</li>
+      <li>PLC-compatible OK / NG signaling</li>
     </ul>
 
-    <hr>
+    <a class="button" href="simulator.html">
+      View Inspection Simulator →
+    </a>
+  </div>
 
-    <!-- ================= SIMULATOR LINK ================= -->
-    <h2>Inspection Simulator</h2>
-    <p>
-        The following simulator represents how this vision logic behaves inside
-        a production environment, including inspection status, counters, and logs.
-    </p>
-    <p>
-        <a href="simulator.html">View Industrial Vision Inspection Simulator</a>
-    </p>
+  <a class="footer-link" href="index.html">← Back to Home</a>
 
-    <hr>
-
-    <p>
-        <a href="index.html">← Back to Home</a>
-    </p>
+</div>
 
 </body>
 </html>
