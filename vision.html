@@ -40,104 +40,144 @@
       <div class="card flow purple">Logging & Traceability</div>
     </div>
   </div>
-
   <!-- ================= PROJECTS ================= -->
-  <div class="section">
-    <h2>Projects Implemented</h2>
+<div class="section">
+  <h2>Projects & Hands-On Work</h2>
 
-    <p style="color:var(--muted); max-width:900px;">
-      The following projects were developed using real hardware and production-style
-      workflows, with emphasis on robustness, validation, and system integration.
-    </p>
+  <p style="color:var(--muted); max-width:900px;">
+    These projects reflect my learning journey in robotics and computer vision.
+    I focused on understanding how real hardware behaves, how vision pipelines break,
+    and how software logic connects with physical systems.
+  </p>
 
-    <!-- PROJECT 1 -->
-    <div class="section grid" style="align-items:center;">
-      <div>
-        <h3>Industrial OCR Inspection System (Jetson Orin Nano)</h3>
-        <p>
-          Designed and deployed an offline OCR inspection pipeline using PaddleOCR v3,
-          capable of operating under factory lighting and alignment variations.
-          Implemented ROI-based processing, fuzzy text validation, confidence scoring,
-          and deterministic OK / NG decision logic.
-        </p>
-        <span style="color:var(--muted); font-size:13px;">
-          Tools: PaddleOCR · OpenCV · Python · Jetson Orin Nano
-        </span>
-      </div>
+  <!-- PROJECT 1 -->
+  <div class="section grid" style="align-items:center;">
+    <div>
+      <h3>OCR-Based Vision Inspection (Jetson Orin Nano)</h3>
+      <p>
+        Built an offline OCR inspection setup using PaddleOCR to understand how
+        text detection and recognition behave on real camera images.
+        The project helped me learn ROI selection, confidence handling,
+        and basic OK / NG decision logic.
+      </p>
 
-      <div class="card">
-        <img src="Assets/ocr.jpeg"
-             alt="Industrial OCR Inspection"
-             style="width:100%; border-radius:12px;">
-      </div>
-    </div>
+      <p style="color:var(--muted); font-size:14px;">
+        What I learned: OCR limitations, lighting impact, ROI importance,
+        and basic inspection logic.
+      </p>
 
-    <!-- PROJECT 2 -->
-    <div class="section grid" style="align-items:center;">
-      <div>
-        <h3>Vision-Guided Pick & Place (ROS 2 + Dobot Magician)</h3>
-        <p>
-          Semi-autonomous pick-and-place system built using ROS 2 (Humble) with
-          dedicated nodes for vision processing, decision logic, and robotic arm
-          control. Implemented HSV-based color detection using a USB camera and
-          integrated perception output with real hardware motion.
-        </p>
-        <span style="color:var(--muted); font-size:13px;">
-          Tools: ROS 2 · OpenCV · Python · Dobot Magician
-        </span>
-      </div>
+      <span style="color:var(--muted); font-size:13px;">
+        Tools: PaddleOCR · OpenCV · Python · Jetson Orin Nano
+      </span>
 
-      <div class="card">
-        <img src="Assets/dobot.png"
-             alt="Dobot Pick and Place"
-             style="width:100%; border-radius:12px;">
+      <div style="margin-top:12px;">
+        <a class="button" href="videos/ocr_demo.mp4" target="_blank">
+          ▶ Watch Demo Video
+        </a>
       </div>
     </div>
 
-    <!-- PROJECT 3 -->
-    <div class="section grid" style="align-items:center;">
-      <div>
-        <h3>Custom 3D-Printed Robotic Arm</h3>
-        <p>
-          Designed, assembled, and programmed a custom multi-DOF robotic arm using
-          3D-printed components. Implemented servo-based joint control, motion
-          sequencing, calibration routines, and hardware debugging in Python.
-        </p>
-        <span style="color:var(--muted); font-size:13px;">
-          Tools: Python · Servo Control · Mechanical Design·Computer vision 
-        </span>
-      </div>
-
-      <div class="card">
-        <img src="Assets/arm.png"
-             alt="3D Printed Robotic Arm"
-             style="width:100%; border-radius:12px;">
-      </div>
+    <div class="card">
+      <img src="assets/ocr.jpeg" style="width:100%; border-radius:12px;">
     </div>
-
-    <!-- PROJECT 4 -->
-    <div class="section grid" style="align-items:center;">
-      <div>
-        <h3>Omnidirectional Mobile Robot (Mecanum Drive)</h3>
-        <p>
-          Designed and developed an omnidirectional mobile robot using mecanum
-          wheels for holonomic motion. Implemented independent wheel velocity
-          control and tested motion behaviors such as lateral translation and
-          in-place rotation.
-        </p>
-        <span style="color:var(--muted); font-size:13px;">
-          Tools: Python · Motor Drivers · Kinematics · Embedded Control
-        </span>
-      </div>
-
-      <div class="card">
-        <img src="Assets/omni.png"
-             alt="Omnidirectional Robot"
-             style="width:100%; border-radius:12px;">
-      </div>
-    </div>
-
   </div>
+
+  <!-- PROJECT 2 -->
+  <div class="section grid" style="align-items:center;">
+    <div>
+      <h3>Vision-Guided Pick & Place (ROS 2 + Dobot)</h3>
+      <p>
+        Implemented a basic vision-guided pick-and-place system using ROS 2.
+        I separated vision processing and robot control logic to better
+        understand ROS node communication and real robot behavior.
+      </p>
+
+      <p style="color:var(--muted); font-size:14px;">
+        What I learned: ROS 2 basics, vision-to-motion flow,
+        and real hardware debugging.
+      </p>
+
+      <span style="color:var(--muted); font-size:13px;">
+        Tools: ROS 2 · OpenCV · Python · Dobot Magician
+      </span>
+
+      <div style="margin-top:12px;">
+        <a class="button" href="videos/dobot_demo.mp4" target="_blank">
+          ▶ Watch Demo Video
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="assets/dobot.png" style="width:100%; border-radius:12px;">
+    </div>
+  </div>
+
+  <!-- PROJECT 3 -->
+  <div class="section grid" style="align-items:center;">
+    <div>
+      <h3>Custom 3D-Printed Robotic Arm</h3>
+      <p>
+        Designed and assembled a small robotic arm to understand
+        mechanical structure, servo control, and basic motion sequencing.
+        This project gave me hands-on experience with hardware issues
+        and calibration challenges.
+      </p>
+
+      <p style="color:var(--muted); font-size:14px;">
+        What I learned: mechanical assembly, servo control,
+        and practical debugging.
+      </p>
+
+      <span style="color:var(--muted); font-size:13px;">
+        Tools: Python · Servo Motors · Mechanical Design
+      </span>
+
+      <div style="margin-top:12px;">
+        <a class="button" href="videos/arm_demo.mp4" target="_blank">
+          ▶ Watch Demo Video
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="assets/arm.png" style="width:100%; border-radius:12px;">
+    </div>
+  </div>
+
+  <!-- PROJECT 4 -->
+  <div class="section grid" style="align-items:center;">
+    <div>
+      <h3>Omnidirectional Mobile Robot (Mecanum Wheels)</h3>
+      <p>
+        Built a simple omnidirectional robot to explore holonomic motion.
+        Implemented basic wheel kinematics and tested different motion
+        patterns like sideways movement and rotation.
+      </p>
+
+      <p style="color:var(--muted); font-size:14px;">
+        What I learned: wheel kinematics, motor control,
+        and motion testing.
+      </p>
+
+      <span style="color:var(--muted); font-size:13px;">
+        Tools: Python · Motor Drivers · Mecanum Kinematics
+      </span>
+
+      <div style="margin-top:12px;">
+        <a class="button" href="videos/omni_demo.mp4" target="_blank">
+          ▶ Watch Demo Video
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="assets/omni.png" style="width:100%; border-radius:12px;">
+    </div>
+  </div>
+
+</div>
+
 
   <!-- ================= FAILURE-FIRST ENGINEERING ================= -->
   <div class="section card">
