@@ -11,75 +11,118 @@
 <span class="badge">INSPECTION SIMULATOR</span>
 <h1>Industrial Vision Dashboard</h1>
 
+<!-- ================= CAMERA + STATUS ================= -->
 <div class="section grid">
 
   <!-- CAMERA PANEL -->
   <div class="card">
-    <h2>Camera Feed</h2>
-    <canvas id="camera" width="640" height="480"
-      style="background:#111;border-radius:8px;"></canvas>
-    <p style="color:var(--muted)">ROI: click & drag</p>
+    <h2>Camera Feed (Webcam)</h2>
+
+    <div style="position:relative; width:640px; max-width:100%;">
+      <video id="video"
+             autoplay
+             muted
+             playsinline
+             style="width:100%; border-radius:8px; background:#000;">
+      </video>
+
+      <canvas id="overlay"
+              style="position:absolute; top:0; left:0;">
+      </canvas>
+    </div>
+
+    <p style="color:var(--muted); margin-top:8px;">
+      Click & drag to define ROI
+    </p>
   </div>
 
   <!-- STATUS PANEL -->
   <div class="card">
     <h2>Status</h2>
-    <p>System: <span id="status" class="ok">READY</span></p>
-    <p>Result: <span id="result">---</span></p>
-    <p>Confidence: <span id="confidence">---</span></p>
-    <p>Time: <span id="time">---</span></p>
 
-    <button class="button" onclick="singleCapture()">Single Capture</button>
-    <button class="button" onclick="toggleContinuous()">Start Continuous OCR</button>
+    <p>System: <span id="systemStatus" class="ok">READY</span></p>
+    <p>Result: <span id="resultText">---</span></p>
+    <p>Confidence: <span id="confidence">---</span></p>
+    <p>Cycle Time: <span id="cycleTime">---</span></p>
+
+    <div style="margin-top:16px;">
+      <button class="button" onclick="singleCapture()">Single Capture</button>
+      <button class="button" onclick="toggleContinuous()" style="margin-left:8px;">
+        Start Continuous
+      </button>
+    </div>
   </div>
 
 </div>
 
-<!-- LOGS -->
+<!-- ================= LOGS ================= -->
 <div class="section card">
   <h2>System Logs</h2>
   <div id="logs"
-       style="background:#111;padding:10px;height:140px;
-              overflow:auto;font-family:monospace;"></div>
+       style="
+         background:#0b1220;
+         padding:12px;
+         height:160px;
+         overflow-y:auto;
+         font-family:monospace;
+         font-size:13px;
+         border-radius:8px;
+       ">
+  </div>
+</div>
+
+<!-- ================= INFO ================= -->
+<div class="section card">
+  <h2>System Architecture</h2>
+  <p style="color:var(--muted); max-width:900px;">
+    This web-based simulator mirrors the behavior of a Qt-based industrial
+    vision system. The browser uses a webcam to demonstrate real-time
+    interaction, while the actual production system runs locally with
+    an industrial camera and full OCR pipeline.
+  </p>
 </div>
 
 </div>
 
+<!-- ================= SCRIPT ================= -->
 <script>
-/* ---------- SYSTEM STATE (mirrors your Qt shared_state) ---------- */
+/* ================= GLOBAL STATE ================= */
 const state = {
-  system: "READY",
   roi: null,
   drawing: false,
   continuous: false,
   timer: null
 };
 
-const canvas = document.getElementById("camera");
+/* ================= ELEMENTS ================= */
+const video = document.getElementById("video");
+const canvas = document.getElementById("overlay");
 const ctx = canvas.getContext("2d");
 
-let startX, startY, endX, endY;
+const systemStatus = document.getElementById("systemStatus");
+const resultText = document.getElementById("resultText");
+const confidenceText = document.getElementById("confidence");
+const cycleTimeText = document.getElementById("cycleTime");
+const logs = document.getElementById("logs");
 
-/* ---------- CAMERA SIM ---------- */
-function drawCamera() {
-  ctx.fillStyle = "#222";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+/* ================= CAMERA ACCESS ================= */
+navigator.mediaDevices.getUserMedia({ video: true })
+  .then(stream => {
+    video.srcObject = stream;
+    video.onloadedmetadata = () => {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      draw();
+      log("Webcam stream started");
+    };
+  })
+  .catch(err => {
+    alert("Camera access denied");
+  });
 
-  if (state.roi) {
-    ctx.strokeStyle = "#22c55e";
-    ctx.lineWidth = 2;
-    ctx.strokeRect(
-      state.roi.x,
-      state.roi.y,
-      state.roi.w,
-      state.roi.h
-    );
-  }
-}
+/* ================= ROI DRAWING ================= */
+let startX, startY;
 
-drawCamera();
-
-/* ---------- ROI DRAWING (ProgramMode feel) ---------- */
 canvas.addEventListener("mousedown", e => {
   state.drawing = true;
   startX = e.offsetX;
@@ -88,75 +131,96 @@ canvas.addEventListener("mousedown", e => {
 
 canvas.addEventListener("mousemove", e => {
   if (!state.drawing) return;
-  endX = e.offsetX;
-  endY = e.offsetY;
-  drawCamera();
-  ctx.strokeStyle = "#facc15";
-  ctx.strokeRect(startX, startY, endX - startX, endY - startY);
+  draw();
+  drawRect(startX, startY, e.offsetX - startX, e.offsetY - startY, "#facc15");
 });
 
 canvas.addEventListener("mouseup", e => {
   state.drawing = false;
-  endX = e.offsetX;
-  endY = e.offsetY;
+  const endX = e.offsetX;
+  const endY = e.offsetY;
+
   state.roi = {
     x: Math.min(startX, endX),
     y: Math.min(startY, endY),
     w: Math.abs(endX - startX),
     h: Math.abs(endY - startY)
   };
-  log("ROI set");
-  drawCamera();
+
+  log("ROI defined");
+  draw();
 });
 
-/* ---------- OCR SIMULATION ---------- */
-function singleCapture() {
-  setStatus("RUNNING");
-  log("Single capture triggered");
+/* ================= DRAW ================= */
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if (state.roi) {
+    drawRect(state.roi.x, state.roi.y, state.roi.w, state.roi.h, "#22c55e");
+  }
+}
 
-  setTimeout(() => {
-    finishOCR();
-  }, 600);
+function drawRect(x, y, w, h, color) {
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2;
+  ctx.strokeRect(x, y, w, h);
+}
+
+/* ================= OCR SIMULATION ================= */
+function singleCapture() {
+  if (!state.roi) {
+    alert("Define ROI first");
+    return;
+  }
+  runInspection();
 }
 
 function toggleContinuous() {
   if (state.continuous) {
     clearInterval(state.timer);
     state.continuous = false;
-    log("Continuous OCR stopped");
-    setStatus("READY");
+    systemStatus.innerText = "READY";
+    log("Continuous inspection stopped");
     return;
   }
 
   if (!state.roi) {
-    alert("Set ROI first");
+    alert("Define ROI first");
     return;
   }
 
   state.continuous = true;
-  log("Continuous OCR started");
-  state.timer = setInterval(finishOCR, 800);
+  systemStatus.innerText = "RUNNING";
+  log("Continuous inspection started");
+
+  state.timer = setInterval(runInspection, 1000);
 }
 
-function finishOCR() {
-  const ok = Math.random() > 0.3;
-  document.getElementById("result").innerText = ok ? "OK" : "NG";
-  document.getElementById("result").className = ok ? "ok" : "fail";
-  document.getElementById("confidence").innerText = (80 + Math.random()*20).toFixed(1) + "%";
-  document.getElementById("time").innerText = (0.4 + Math.random()*0.4).toFixed(2) + "s";
-  log("OCR cycle completed → " + (ok ? "OK" : "NG"));
-  setStatus("RUNNING");
+function runInspection() {
+  systemStatus.innerText = "RUNNING";
+
+  const start = performance.now();
+
+  setTimeout(() => {
+    const ok = Math.random() > 0.3;
+
+    resultText.innerText = ok ? "OK" : "NG";
+    resultText.className = ok ? "ok" : "fail";
+
+    confidenceText.innerText =
+      (80 + Math.random() * 20).toFixed(1) + "%";
+
+    cycleTimeText.innerText =
+      ((performance.now() - start) / 1000).toFixed(2) + " s";
+
+    log("Inspection completed → " + (ok ? "OK" : "NG"));
+  }, 300);
 }
 
-/* ---------- UTIL ---------- */
-function setStatus(s) {
-  document.getElementById("status").innerText = s;
-}
-
+/* ================= LOGGING ================= */
 function log(msg) {
-  const el = document.getElementById("logs");
-  el.innerHTML += `[${new Date().toLocaleTimeString()}] ${msg}<br>`;
-  el.scrollTop = el.scrollHeight;
+  const time = new Date().toLocaleTimeString();
+  logs.innerHTML += `[${time}] ${msg}<br>`;
+  logs.scrollTop = logs.scrollHeight;
 }
 </script>
 
