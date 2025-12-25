@@ -50,10 +50,9 @@
       workflows, with emphasis on robustness, validation, and system integration.
     </p>
 
-    <div class="grid">
-
-      <!-- PROJECT 1 -->
-      <div class="card flow green">
+    <!-- PROJECT 1 -->
+    <div class="section grid" style="align-items:center;">
+      <div>
         <h3>Industrial OCR Inspection System (Jetson Orin Nano)</h3>
         <p>
           Designed and deployed an offline OCR inspection pipeline using PaddleOCR v3,
@@ -66,8 +65,16 @@
         </span>
       </div>
 
-      <!-- PROJECT 2 -->
-      <div class="card flow purple">
+      <div class="card">
+        <img src="assets/ocr_system.png"
+             alt="Industrial OCR Inspection"
+             style="width:100%; border-radius:12px;">
+      </div>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="section grid" style="align-items:center;">
+      <div>
         <h3>Vision-Guided Pick & Place (ROS 2 + Dobot Magician)</h3>
         <p>
           Semi-autonomous pick-and-place system built using ROS 2 (Humble) with
@@ -80,36 +87,16 @@
         </span>
       </div>
 
-      <!-- PROJECT 3 -->
-      <div class="card flow">
-        <h3>Web-Based Vision Inspection Simulator</h3>
-        <p>
-          Browser-based simulator replicating the workflow of a Qt-based inspection
-          system. Demonstrates ROI selection, OCR execution, system states, timing,
-          and logging. Explicitly designed as a demonstration layer, not a
-          production OCR engine.
-        </p>
-        <span style="color:var(--muted); font-size:13px;">
-          Tools: HTML · CSS · JavaScript · Tesseract.js
-        </span>
+      <div class="card">
+        <img src="Assets/dobot.png"
+             alt="Dobot Pick and Place"
+             style="width:100%; border-radius:12px;">
       </div>
+    </div>
 
-      <!-- PROJECT 4 -->
-      <div class="card flow green">
-        <h3>Vision + Automation Integration</h3>
-        <p>
-          Integrated vision inspection results with PLC-style OK / NG signaling
-          logic to support downstream automation decisions. Focused on reliability,
-          deterministic behavior, and clean separation between perception and
-          control layers.
-        </p>
-        <span style="color:var(--muted); font-size:13px;">
-          Focus: Vision Logic · Automation Interfaces · Signaling
-        </span>
-      </div>
-
-      <!-- PROJECT 5 -->
-      <div class="card flow">
+    <!-- PROJECT 3 -->
+    <div class="section grid" style="align-items:center;">
+      <div>
         <h3>Custom 3D-Printed Robotic Arm</h3>
         <p>
           Designed, assembled, and programmed a custom multi-DOF robotic arm using
@@ -121,21 +108,35 @@
         </span>
       </div>
 
-      <!-- PROJECT 6 -->
-      <div class="card flow purple">
-        <h3>Failure-First Vision Experiments</h3>
+      <div class="card">
+        <img src="assets/robotic_arm.png"
+             alt="3D Printed Robotic Arm"
+             style="width:100%; border-radius:12px;">
+      </div>
+    </div>
+
+    <!-- PROJECT 4 -->
+    <div class="section grid" style="align-items:center;">
+      <div>
+        <h3>Omnidirectional Mobile Robot (Mecanum Drive)</h3>
         <p>
-          Conducted controlled experiments to identify and mitigate common industrial
-          vision failure modes such as glare, false positives, vibration-induced blur,
-          and processing latency. Design decisions were driven by failure analysis,
-          not benchmark accuracy alone.
+          Designed and developed an omnidirectional mobile robot using mecanum
+          wheels for holonomic motion. Implemented independent wheel velocity
+          control and tested motion behaviors such as lateral translation and
+          in-place rotation.
         </p>
         <span style="color:var(--muted); font-size:13px;">
-          Focus: Robustness · Determinism · Reliability
+          Tools: Python · Motor Drivers · Kinematics · Embedded Control
         </span>
       </div>
 
+      <div class="card">
+        <img src="assets/omni_bot.png"
+             alt="Omnidirectional Robot"
+             style="width:100%; border-radius:12px;">
+      </div>
     </div>
+
   </div>
 
   <!-- ================= FAILURE-FIRST ENGINEERING ================= -->
