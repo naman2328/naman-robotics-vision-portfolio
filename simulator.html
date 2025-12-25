@@ -3,13 +3,27 @@
 <head>
   <title>Industrial Vision Simulator</title>
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- OCR ENGINE (WEB ONLY) -->
+  <script src="https://unpkg.com/tesseract.js@5.0.4/dist/tesseract.min.js"></script>
 </head>
 <body>
 
 <div class="container">
 
 <span class="badge">INSPECTION SIMULATOR</span>
-<h1>Industrial Vision Dashboard</h1>
+<h1>Industrial Vision Dashboard (Web Simulator)</h1>
+
+<!-- ================= DISCLAIMER ================= -->
+<div class="section card">
+  <p style="color:#facc15; font-size:14px;">
+    ⚠️ <b>Important:</b> This is a browser-based simulator created to demonstrate
+    system workflow and inspection logic.
+    The <b>actual production system</b> runs as a Qt application using
+    PaddleOCR, barcode decoding, and industrial cameras.
+    A live demonstration of the real system is available on request.
+  </p>
+</div>
 
 <!-- ================= CAMERA + STATUS ================= -->
 <div class="section grid">
@@ -18,17 +32,11 @@
   <div class="card">
     <h2>Camera Feed (Webcam)</h2>
 
-    <div style="position:relative; width:640px; max-width:100%;">
-      <video id="video"
-             autoplay
-             muted
-             playsinline
-             style="width:100%; border-radius:8px; background:#000;">
-      </video>
-
+    <div style="position:relative;">
+      <video id="video" autoplay muted playsinline
+             style="width:100%; border-radius:8px; background:#000;"></video>
       <canvas id="overlay"
-              style="position:absolute; top:0; left:0;">
-      </canvas>
+              style="position:absolute; top:0; left:0;"></canvas>
     </div>
 
     <p style="color:var(--muted); margin-top:8px;">
@@ -38,18 +46,16 @@
 
   <!-- STATUS PANEL -->
   <div class="card">
-    <h2>Status</h2>
+    <h2>Inspection Status</h2>
 
     <p>System: <span id="systemStatus" class="ok">READY</span></p>
+    <p>Detected Text: <span id="ocrText">---</span></p>
     <p>Result: <span id="resultText">---</span></p>
     <p>Confidence: <span id="confidence">---</span></p>
     <p>Cycle Time: <span id="cycleTime">---</span></p>
 
     <div style="margin-top:16px;">
-      <button class="button" onclick="singleCapture()">Single Capture</button>
-      <button class="button" onclick="toggleContinuous()" style="margin-left:8px;">
-        Start Continuous
-      </button>
+      <button class="button" onclick="runOCR()">Single Capture</button>
     </div>
   </div>
 
@@ -71,14 +77,14 @@
   </div>
 </div>
 
-<!-- ================= INFO ================= -->
+<!-- ================= LOGIC EXPLANATION ================= -->
 <div class="section card">
-  <h2>System Architecture</h2>
+  <h2>Inspection Logic (Mirrored)</h2>
   <p style="color:var(--muted); max-width:900px;">
-    This web-based simulator mirrors the behavior of a Qt-based industrial
-    vision system. The browser uses a webcam to demonstrate real-time
-    interaction, while the actual production system runs locally with
-    an industrial camera and full OCR pipeline.
+    OCR → Text normalization → Fuzzy matching → OK / NG decision →
+    Confidence & timing → Logging.
+    The same decision logic is used in the Qt-based production system,
+    while the OCR engine differs for web compatibility.
   </p>
 </div>
 
@@ -86,13 +92,18 @@
 
 <!-- ================= SCRIPT ================= -->
 <script>
-/* ================= GLOBAL STATE ================= */
-const state = {
-  roi: null,
-  drawing: false,
-  continuous: false,
-  timer: null
-};
+/* ================= CONFIG ================= */
+
+// Expected entries (demo)
+const expectedEntries = ["ABC123", "LOT45"];
+
+// Match threshold (similar to difflib)
+const MATCH_THRESHOLD = 0.95;
+
+/* ================= STATE ================= */
+let roi = null;
+let drawing = false;
+let startX, startY;
 
 /* ================= ELEMENTS ================= */
 const video = document.getElementById("video");
@@ -100,63 +111,52 @@ const canvas = document.getElementById("overlay");
 const ctx = canvas.getContext("2d");
 
 const systemStatus = document.getElementById("systemStatus");
+const ocrTextEl = document.getElementById("ocrText");
 const resultText = document.getElementById("resultText");
-const confidenceText = document.getElementById("confidence");
-const cycleTimeText = document.getElementById("cycleTime");
+const confidenceEl = document.getElementById("confidence");
+const cycleTimeEl = document.getElementById("cycleTime");
 const logs = document.getElementById("logs");
 
-/* ================= CAMERA ACCESS ================= */
+/* ================= CAMERA ================= */
 navigator.mediaDevices.getUserMedia({ video: true })
   .then(stream => {
     video.srcObject = stream;
     video.onloadedmetadata = () => {
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
-      draw();
       log("Webcam stream started");
     };
   })
-  .catch(err => {
-    alert("Camera access denied");
-  });
+  .catch(() => alert("Camera access denied"));
 
-/* ================= ROI DRAWING ================= */
-let startX, startY;
-
+/* ================= ROI DRAW ================= */
 canvas.addEventListener("mousedown", e => {
-  state.drawing = true;
+  drawing = true;
   startX = e.offsetX;
   startY = e.offsetY;
 });
 
 canvas.addEventListener("mousemove", e => {
-  if (!state.drawing) return;
+  if (!drawing) return;
   draw();
   drawRect(startX, startY, e.offsetX - startX, e.offsetY - startY, "#facc15");
 });
 
 canvas.addEventListener("mouseup", e => {
-  state.drawing = false;
-  const endX = e.offsetX;
-  const endY = e.offsetY;
-
-  state.roi = {
-    x: Math.min(startX, endX),
-    y: Math.min(startY, endY),
-    w: Math.abs(endX - startX),
-    h: Math.abs(endY - startY)
+  drawing = false;
+  roi = {
+    x: Math.min(startX, e.offsetX),
+    y: Math.min(startY, e.offsetY),
+    w: Math.abs(e.offsetX - startX),
+    h: Math.abs(e.offsetY - startY)
   };
-
   log("ROI defined");
   draw();
 });
 
-/* ================= DRAW ================= */
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  if (state.roi) {
-    drawRect(state.roi.x, state.roi.y, state.roi.w, state.roi.h, "#22c55e");
-  }
+  if (roi) drawRect(roi.x, roi.y, roi.w, roi.h, "#22c55e");
 }
 
 function drawRect(x, y, w, h, color) {
@@ -165,61 +165,69 @@ function drawRect(x, y, w, h, color) {
   ctx.strokeRect(x, y, w, h);
 }
 
-/* ================= OCR SIMULATION ================= */
-function singleCapture() {
-  if (!state.roi) {
+/* ================= TEXT LOGIC ================= */
+function normalize(text) {
+  return text.toLowerCase().replace(/\s/g, "").replace(/[.,]/g, "");
+}
+
+function similarity(a, b) {
+  let matches = 0;
+  for (let i = 0; i < Math.min(a.length, b.length); i++) {
+    if (a[i] === b[i]) matches++;
+  }
+  return matches / Math.max(a.length, b.length);
+}
+
+function isMatch(expected, detected) {
+  const exp = normalize(expected);
+  return detected.some(d =>
+    similarity(exp, normalize(d)) >= MATCH_THRESHOLD
+  );
+}
+
+/* ================= OCR ================= */
+async function runOCR() {
+  if (!roi) {
     alert("Define ROI first");
     return;
   }
-  runInspection();
-}
 
-function toggleContinuous() {
-  if (state.continuous) {
-    clearInterval(state.timer);
-    state.continuous = false;
-    systemStatus.innerText = "READY";
-    log("Continuous inspection stopped");
-    return;
-  }
+  systemStatus.innerText = "PROCESSING";
+  log("OCR cycle started");
 
-  if (!state.roi) {
-    alert("Define ROI first");
-    return;
-  }
+  const t0 = performance.now();
 
-  state.continuous = true;
-  systemStatus.innerText = "RUNNING";
-  log("Continuous inspection started");
+  const temp = document.createElement("canvas");
+  temp.width = roi.w;
+  temp.height = roi.h;
+  temp.getContext("2d").drawImage(
+    video,
+    roi.x, roi.y, roi.w, roi.h,
+    0, 0, roi.w, roi.h
+  );
 
-  state.timer = setInterval(runInspection, 1000);
-}
+  const result = await Tesseract.recognize(temp, "eng");
+  const words = result.data.words.map(w => w.text).filter(Boolean);
 
-function runInspection() {
-  systemStatus.innerText = "RUNNING";
+  ocrTextEl.innerText = words.join(" | ") || "(no text)";
+  confidenceEl.innerText = result.data.confidence.toFixed(1) + "%";
 
-  const start = performance.now();
+  const matched = expectedEntries.filter(e => isMatch(e, words));
+  const status = matched.length === expectedEntries.length ? "OK" : "NG";
 
-  setTimeout(() => {
-    const ok = Math.random() > 0.3;
+  resultText.innerText = status;
+  resultText.className = status === "OK" ? "ok" : "fail";
 
-    resultText.innerText = ok ? "OK" : "NG";
-    resultText.className = ok ? "ok" : "fail";
+  cycleTimeEl.innerText =
+    ((performance.now() - t0) / 1000).toFixed(2) + " s";
 
-    confidenceText.innerText =
-      (80 + Math.random() * 20).toFixed(1) + "%";
-
-    cycleTimeText.innerText =
-      ((performance.now() - start) / 1000).toFixed(2) + " s";
-
-    log("Inspection completed → " + (ok ? "OK" : "NG"));
-  }, 300);
+  systemStatus.innerText = "READY";
+  log(`OCR completed → ${status}`);
 }
 
 /* ================= LOGGING ================= */
 function log(msg) {
-  const time = new Date().toLocaleTimeString();
-  logs.innerHTML += `[${time}] ${msg}<br>`;
+  logs.innerHTML += `[${new Date().toLocaleTimeString()}] ${msg}<br>`;
   logs.scrollTop = logs.scrollHeight;
 }
 </script>
