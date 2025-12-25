@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Inspection Simulator</title>
+  <title>Industrial Vision Simulator</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -13,26 +13,152 @@
 
 <div class="section grid">
 
+  <!-- CAMERA PANEL -->
   <div class="card">
     <h2>Camera Feed</h2>
-    <p>[ Simulated Camera View ]</p>
+    <canvas id="camera" width="640" height="480"
+      style="background:#111;border-radius:8px;"></canvas>
+    <p style="color:var(--muted)">ROI: click & drag</p>
   </div>
 
+  <!-- STATUS PANEL -->
   <div class="card">
     <h2>Status</h2>
-    <p>System: <span class="ok">RUNNING</span></p>
-    <p>Result: <span class="ok">OK</span></p>
-    <p>Count: 124</p>
+    <p>System: <span id="status" class="ok">READY</span></p>
+    <p>Result: <span id="result">---</span></p>
+    <p>Confidence: <span id="confidence">---</span></p>
+    <p>Time: <span id="time">---</span></p>
+
+    <button class="button" onclick="singleCapture()">Single Capture</button>
+    <button class="button" onclick="toggleContinuous()">Start Continuous OCR</button>
   </div>
 
 </div>
 
+<!-- LOGS -->
 <div class="section card">
   <h2>System Logs</h2>
-  <p>[12:01] ROI processed → OK</p>
-  <p>[12:02] Validation passed</p>
+  <div id="logs"
+       style="background:#111;padding:10px;height:140px;
+              overflow:auto;font-family:monospace;"></div>
 </div>
 
 </div>
+
+<script>
+/* ---------- SYSTEM STATE (mirrors your Qt shared_state) ---------- */
+const state = {
+  system: "READY",
+  roi: null,
+  drawing: false,
+  continuous: false,
+  timer: null
+};
+
+const canvas = document.getElementById("camera");
+const ctx = canvas.getContext("2d");
+
+let startX, startY, endX, endY;
+
+/* ---------- CAMERA SIM ---------- */
+function drawCamera() {
+  ctx.fillStyle = "#222";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  if (state.roi) {
+    ctx.strokeStyle = "#22c55e";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(
+      state.roi.x,
+      state.roi.y,
+      state.roi.w,
+      state.roi.h
+    );
+  }
+}
+
+drawCamera();
+
+/* ---------- ROI DRAWING (ProgramMode feel) ---------- */
+canvas.addEventListener("mousedown", e => {
+  state.drawing = true;
+  startX = e.offsetX;
+  startY = e.offsetY;
+});
+
+canvas.addEventListener("mousemove", e => {
+  if (!state.drawing) return;
+  endX = e.offsetX;
+  endY = e.offsetY;
+  drawCamera();
+  ctx.strokeStyle = "#facc15";
+  ctx.strokeRect(startX, startY, endX - startX, endY - startY);
+});
+
+canvas.addEventListener("mouseup", e => {
+  state.drawing = false;
+  endX = e.offsetX;
+  endY = e.offsetY;
+  state.roi = {
+    x: Math.min(startX, endX),
+    y: Math.min(startY, endY),
+    w: Math.abs(endX - startX),
+    h: Math.abs(endY - startY)
+  };
+  log("ROI set");
+  drawCamera();
+});
+
+/* ---------- OCR SIMULATION ---------- */
+function singleCapture() {
+  setStatus("RUNNING");
+  log("Single capture triggered");
+
+  setTimeout(() => {
+    finishOCR();
+  }, 600);
+}
+
+function toggleContinuous() {
+  if (state.continuous) {
+    clearInterval(state.timer);
+    state.continuous = false;
+    log("Continuous OCR stopped");
+    setStatus("READY");
+    return;
+  }
+
+  if (!state.roi) {
+    alert("Set ROI first");
+    return;
+  }
+
+  state.continuous = true;
+  log("Continuous OCR started");
+  state.timer = setInterval(finishOCR, 800);
+}
+
+function finishOCR() {
+  const ok = Math.random() > 0.3;
+  document.getElementById("result").innerText = ok ? "OK" : "NG";
+  document.getElementById("result").className = ok ? "ok" : "fail";
+  document.getElementById("confidence").innerText = (80 + Math.random()*20).toFixed(1) + "%";
+  document.getElementById("time").innerText = (0.4 + Math.random()*0.4).toFixed(2) + "s";
+  log("OCR cycle completed → " + (ok ? "OK" : "NG"));
+  setStatus("RUNNING");
+}
+
+/* ---------- UTIL ---------- */
+function setStatus(s) {
+  document.getElementById("status").innerText = s;
+}
+
+function log(msg) {
+  const el = document.getElementById("logs");
+  el.innerHTML += `[${new Date().toLocaleTimeString()}] ${msg}<br>`;
+  el.scrollTop = el.scrollHeight;
+}
+</script>
+
 </body>
 </html>
