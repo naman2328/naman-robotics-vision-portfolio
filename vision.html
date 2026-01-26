@@ -1,40 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Industrial Computer Vision</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Industrial Computer Vision | Naman Sharma</title>
+
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<div class="container">
-  <!-- BACK BUTTON -->
-<div style="margin-bottom:24px;">
-  <a href="index.html" class="sticky-back-btn">
-    ← Back to Home
-  </a>
-</div>
+<main class="container">
 
+  <!-- ================= NAV ================= -->
+  <nav class="section">
+    <a href="index.html" class="sticky-back-btn">← Back to Home</a>
+  </nav>
 
   <!-- ================= HEADER ================= -->
-  <span class="badge">INDUSTRIAL COMPUTER VISION</span>
-  <h1>Vision Inspection & Robotics Systems</h1>
+  <header class="section">
+    <span class="badge">INDUSTRIAL COMPUTER VISION</span>
+    <h1>Vision Inspection & Robotics Systems</h1>
 
-  <p style="max-width:900px;">
-    Status: Portfolio documents academic projects and ongoing industrial learning. Some systems are prototypes or simulators.
-  </p>
+    <p class="section-text wide">
+      Status: Portfolio documents academic projects and ongoing industrial learning.
+      Some systems are prototypes or simulators.
+    </p>
+  </header>
 
-  <!-- ================= WHY VISION FAILS ================= -->
-  <div class="section card">
+  <!-- ================= WHY FAILURE ================= -->
+  <section class="section card">
     <h2>Why Vision Systems Fail in Factories</h2>
     <p>
       Real production environments introduce glare, vibration, inconsistent part
       positioning, and timing constraints. Naive vision pipelines that work in
-      controlled conditions often fail without deterministic logic and validation.
+      controlled conditions often fail without deterministic logic, validation,
+      and traceability.
     </p>
-  </div>
+  </section>
 
-  <!-- ================= SYSTEM ARCHITECTURE ================= -->
-  <div class="section">
+  <!-- ================= ARCHITECTURE ================= -->
+  <section class="section">
     <h2>System Architecture</h2>
 
     <div class="grid">
@@ -44,165 +50,151 @@
       <div class="card flow green">OK / NG Decision Logic</div>
       <div class="card flow purple">Logging & Traceability</div>
     </div>
-  </div>
+  </section>
+
   <!-- ================= PROJECTS ================= -->
-<div class="section">
-  <h2>Projects & Hands-On Work</h2>
+  <section class="section">
+    <h2>Projects & Hands-On Work</h2>
 
-  <p style="color:var(--muted); max-width:900px;">
-    These projects reflect my learning journey in robotics and computer vision.
-    I focused on understanding how real hardware behaves, how vision pipelines break,
-    and how software logic connects with physical systems.
-  </p>
+    <p class="section-text wide muted">
+      These projects reflect my learning journey in robotics and computer vision.
+      The focus was on understanding real hardware behavior, failure modes,
+      and how software logic connects with physical systems.
+    </p>
 
-  <!-- PROJECT 1 -->
-  <div class="section grid" style="align-items:center;">
-    <div>
-      <h3>OCR-Based Vision Inspection (Jetson Orin Nano)</h3>
-      <p>
-        Built an offline OCR inspection setup using PaddleOCR to understand how
-        text detection and recognition behave on real camera images.
-        The project helped me learn ROI selection, confidence handling,
-        and basic OK / NG decision logic.
-      </p>
+    <!-- PROJECT 1 -->
+    <article class="section grid project">
+      <div class="project-text">
+        <h3>OCR-Based Vision Inspection (Jetson Orin Nano)</h3>
+        <p>
+          Built an offline OCR inspection setup using PaddleOCR to study text
+          detection and recognition on real camera images.
+          Emphasis was placed on ROI selection, confidence handling,
+          and OK / NG decision logic.
+        </p>
 
-      <p style="color:var(--muted); font-size:14px;">
-        What I learned: OCR limitations, lighting impact, ROI importance,
-        and basic inspection logic.
-      </p>
+        <p class="muted small">
+          What I learned: OCR limitations, lighting impact,
+          ROI importance, inspection logic.
+        </p>
 
-      <span style="color:var(--muted); font-size:13px;">
-        Tools: PaddleOCR · OpenCV · Python · Jetson Orin Nano
-      </span>
-
-      <div style="margin-top:12px;">
-        <!--<a class="button" href="videos/ocr_demo.mp4" target="_blank">
-          ▶ Watch Demo Video
-        </a>-->
+        <span class="tech">
+          Tools: PaddleOCR · OpenCV · Python · Jetson Orin Nano
+        </span>
       </div>
-    </div>
 
-    <div class="card">
-      <img src="Assets/ocr.jpeg" style="width:100%; border-radius:12px;">
-    </div>
-  </div>
-
-  <!-- PROJECT 2 -->
-  <div class="section grid" style="align-items:center;">
-    <div>
-      <h3>Vision-Guided Pick & Place (ROS 2 + Dobot)</h3>
-      <p>
-        Implemented a basic vision-guided pick-and-place system using ROS 2.
-        I separated vision processing and robot control logic to better
-        understand ROS node communication and real robot behavior.
-      </p>
-
-      <p style="color:var(--muted); font-size:14px;">
-        What I learned: ROS 2 basics, vision-to-motion flow,
-        and real hardware debugging.
-      </p>
-
-      <span style="color:var(--muted); font-size:13px;">
-        Tools: ROS 2 · OpenCV · Python · Dobot Magician
-      </span>
-
-      <div style="margin-top:12px;">
-        <a class="button" href="Assets/dobot.mp4" target="_blank">
-          ▶ Watch Demo Video
-        </a>
+      <div class="card project-media">
+        <img src="Assets/ocr.jpeg" alt="OCR Inspection System">
       </div>
-    </div>
+    </article>
 
-    <div class="card">
-      <img src="Assets/dobot.png" style="width:100%; border-radius:12px;">
-    </div>
-  </div>
+    <!-- PROJECT 2 -->
+    <article class="section grid project">
+      <div class="project-text">
+        <h3>Vision-Guided Pick & Place (ROS 2 + Dobot)</h3>
+        <p>
+          Implemented a basic vision-guided pick-and-place system using ROS 2.
+          Vision processing and robot control were separated into independent nodes
+          to understand ROS communication and real robot behavior.
+        </p>
 
-  <!-- PROJECT 3 -->
-  <div class="section grid" style="align-items:center;">
-    <div>
-      <h3>Custom 3D-Printed Robotic Arm</h3>
-      <p>
-        Designed and assembled a small robotic arm to understand
-        mechanical structure, servo control, and basic motion sequencing.
-        This project gave me hands-on experience with hardware issues
-        and calibration challenges.
-      </p>
+        <p class="muted small">
+          What I learned: ROS 2 fundamentals,
+          vision-to-motion flow, hardware debugging.
+        </p>
 
-      <p style="color:var(--muted); font-size:14px;">
-        What I learned: mechanical assembly, servo control,
-        and practical debugging.
-      </p>
+        <span class="tech">
+          Tools: ROS 2 · OpenCV · Python · Dobot Magician
+        </span>
 
-      <span style="color:var(--muted); font-size:13px;">
-        Tools: Python · Servo Motors · Mechanical Design
-      </span>
-
-      <div style="margin-top:12px;">
-        <!--<a class="button" href="Assets/arm.mp4" target="_blank">
-          ▶ Watch Demo Video
-        </a>-->
+        <div class="project-actions">
+          <a class="button" href="Assets/dobot.mp4" target="_blank">
+            ▶ Watch Demo Video
+          </a>
+        </div>
       </div>
-    </div>
 
-    <div class="card">
-      <img src="Assets/arm.png" style="width:100%; border-radius:12px;">
-    </div>
-  </div>
-
-  <!-- PROJECT 4 -->
-  <div class="section grid" style="align-items:center;">
-    <div>
-      <h3>Omnidirectional Mobile Robot (Mecanum Wheels)</h3>
-      <p>
-        Built a simple omnidirectional robot to explore holonomic motion.
-        Implemented basic wheel kinematics and tested different motion
-        patterns like sideways movement and rotation.
-      </p>
-
-      <p style="color:var(--muted); font-size:14px;">
-        What I learned: wheel kinematics, motor control,
-        and motion testing.
-      </p>
-
-      <span style="color:var(--muted); font-size:13px;">
-        Tools: Python · Motor Drivers · Mecanum Kinematics
-      </span>
-
-      <div style="margin-top:12px;">
-        <a class="button" href="Assets/omni_demo.mp4" target="_blank">
-          ▶ Watch Demo Video
-        </a>
+      <div class="card project-media">
+        <img src="Assets/dobot.png" alt="Vision Guided Pick and Place">
       </div>
-    </div>
+    </article>
 
-    <div class="card">
-      <img src="Assets/omni.png" style="width:100%; border-radius:12px;">
-    </div>
-  </div>
+    <!-- PROJECT 3 -->
+    <article class="section grid project">
+      <div class="project-text">
+        <h3>Custom 3D-Printed Robotic Arm</h3>
+        <p>
+          Designed and assembled a small robotic arm to understand
+          mechanical structure, servo control, and basic motion sequencing.
+          This project exposed real-world calibration and hardware issues.
+        </p>
 
-</div>
+        <p class="muted small">
+          What I learned: mechanical assembly,
+          servo control, practical debugging.
+        </p>
 
+        <span class="tech">
+          Tools: Python · Servo Motors · Mechanical Design
+        </span>
+      </div>
 
-  <!-- ================= FAILURE-FIRST ENGINEERING ================= -->
-  <div class="section card">
+      <div class="card project-media">
+        <img src="Assets/arm.png" alt="3D Printed Robotic Arm">
+      </div>
+    </article>
+
+    <!-- PROJECT 4 -->
+    <article class="section grid project">
+      <div class="project-text">
+        <h3>Omnidirectional Mobile Robot (Mecanum Wheels)</h3>
+        <p>
+          Built an omnidirectional mobile robot to explore holonomic motion.
+          Implemented wheel kinematics and tested lateral and rotational movement.
+        </p>
+
+        <p class="muted small">
+          What I learned: wheel kinematics,
+          motor control, motion testing.
+        </p>
+
+        <span class="tech">
+          Tools: Python · Motor Drivers · Mecanum Kinematics
+        </span>
+
+        <div class="project-actions">
+          <a class="button" href="Assets/omni_demo.mp4" target="_blank">
+            ▶ Watch Demo Video
+          </a>
+        </div>
+      </div>
+
+      <div class="card project-media">
+        <img src="Assets/omni.png" alt="Omnidirectional Robot">
+      </div>
+    </article>
+
+  </section>
+
+  <!-- ================= FAILURE-FIRST ================= -->
+  <section class="section card">
     <h2>Failure-First Engineering Approach</h2>
     <ul class="list">
-      <li class="fail">Glare & reflections → ROI constraints and preprocessing</li>
+      <li class="fail">Glare & reflections → ROI constraints & preprocessing</li>
       <li class="fail">False positives → validation rules & fuzzy matching</li>
       <li class="fail">Latency issues → region-only processing</li>
       <li class="fail">Unstable inputs → deterministic state handling</li>
     </ul>
-  </div>
+  </section>
 
   <!-- ================= CTA ================= -->
-  <div class="section">
+  <section class="section">
     <a class="button" href="simulator.html">
       View Inspection Simulator →
     </a>
-  </div>
+  </section>
 
-</div>
+</main>
 
 </body>
 </html>
