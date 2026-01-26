@@ -1,205 +1,289 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Industrial Computer Vision</title>
-  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    :root {
+      --bg: #0f1115;
+      --card: #171a21;
+      --text: #eaeaf0;
+      --muted: #9aa0aa;
+      --accent: #4da3ff;
+      --ok: #35c97b;
+      --purple: #9b7cff;
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ================= CONTAINER ================= */
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* ================= BACK BUTTON ================= */
+    .sticky-back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: var(--card);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      border: 1px solid #222;
+      z-index: 100;
+    }
+
+    /* ================= HEADER ================= */
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 1px;
+      padding: 6px 12px;
+      background: rgba(77,163,255,0.15);
+      color: var(--accent);
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin: 0 0 12px;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 26px;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: var(--muted);
+      max-width: 900px;
+    }
+
+    /* ================= SECTIONS ================= */
+    .section {
+      margin-top: 56px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 24px;
+      border: 1px solid #222;
+    }
+
+    /* ================= GRID ================= */
+    .grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    /* ================= FLOW ================= */
+    .flow {
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .flow.green { color: var(--ok); }
+    .flow.purple { color: var(--purple); }
+
+    /* ================= IMAGES ================= */
+    img {
+      width: 100%;
+      border-radius: 12px;
+      max-height: 260px;
+      object-fit: cover;
+    }
+
+    /* ================= LIST ================= */
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .list li {
+      padding: 10px 0;
+      border-bottom: 1px solid #222;
+    }
+
+    .fail {
+      color: #ff7a7a;
+    }
+
+    /* ================= BUTTON ================= */
+    .button {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 10px 18px;
+      background: var(--accent);
+      color: #000;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    /* ================= LAPTOP BREAKPOINT ================= */
+    @media (max-width: 1366px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      img {
+        max-height: 220px;
+      }
+
+      .section {
+        margin-top: 44px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
+<a href="index.html" class="sticky-back-btn">← Back</a>
+
 <div class="container">
-  <!-- BACK BUTTON -->
-<div style="margin-bottom:24px;">
-  <a href="index.html" class="sticky-back-btn">
-    ← Back to Home
-  </a>
-</div>
 
-
-  <!-- ================= HEADER ================= -->
   <span class="badge">INDUSTRIAL COMPUTER VISION</span>
   <h1>Vision Inspection & Robotics Systems</h1>
 
-  <p style="max-width:900px;">
-    Status: Portfolio documents academic projects and ongoing industrial learning. Some systems are prototypes or simulators.
+  <p>
+    Status: Portfolio documents academic projects and ongoing industrial learning.
+    Some systems are prototypes or simulators.
   </p>
 
-  <!-- ================= WHY VISION FAILS ================= -->
+  <!-- WHY FAIL -->
   <div class="section card">
     <h2>Why Vision Systems Fail in Factories</h2>
     <p>
-      Real production environments introduce glare, vibration, inconsistent part
-      positioning, and timing constraints. Naive vision pipelines that work in
-      controlled conditions often fail without deterministic logic and validation.
+      Real production environments introduce glare, vibration, inconsistent positioning,
+      and strict timing. Vision pipelines that work in labs often collapse without
+      deterministic logic and validation.
     </p>
   </div>
 
-  <!-- ================= SYSTEM ARCHITECTURE ================= -->
+  <!-- ARCHITECTURE -->
   <div class="section">
     <h2>System Architecture</h2>
-
     <div class="grid">
       <div class="card flow">Camera Capture</div>
       <div class="card flow">ROI Locking</div>
       <div class="card flow">OCR / Vision Processing</div>
-      <div class="card flow green">OK / NG Decision Logic</div>
+      <div class="card flow green">OK / NG Logic</div>
       <div class="card flow purple">Logging & Traceability</div>
     </div>
   </div>
-  <!-- ================= PROJECTS ================= -->
-<div class="section">
-  <h2>Projects & Hands-On Work</h2>
-
-  <p style="color:var(--muted); max-width:900px;">
-    These projects reflect my learning journey in robotics and computer vision.
-    I focused on understanding how real hardware behaves, how vision pipelines break,
-    and how software logic connects with physical systems.
-  </p>
 
   <!-- PROJECT 1 -->
-  <div class="section grid" style="align-items:center;">
+  <div class="section grid">
     <div>
       <h3>OCR-Based Vision Inspection (Jetson Orin Nano)</h3>
       <p>
-        Built an offline OCR inspection setup using PaddleOCR to understand how
-        text detection and recognition behave on real camera images.
-        The project helped me learn ROI selection, confidence handling,
-        and basic OK / NG decision logic.
+        Offline OCR inspection to study detection stability, ROI handling,
+        and decision confidence under real lighting.
       </p>
-
-      <p style="color:var(--muted); font-size:14px;">
-        What I learned: OCR limitations, lighting impact, ROI importance,
-        and basic inspection logic.
-      </p>
-
-      <span style="color:var(--muted); font-size:13px;">
-        Tools: PaddleOCR · OpenCV · Python · Jetson Orin Nano
-      </span>
-
-      <div style="margin-top:12px;">
-        <!--<a class="button" href="videos/ocr_demo.mp4" target="_blank">
-          ▶ Watch Demo Video
-        </a>-->
-      </div>
+      <p style="font-size:14px;">Tools: PaddleOCR · OpenCV · Python · Jetson</p>
     </div>
-
     <div class="card">
-      <img src="Assets/ocr.jpeg" style="width:100%; border-radius:12px;">
+      <img src="Assets/ocr.jpeg">
     </div>
   </div>
 
   <!-- PROJECT 2 -->
-  <div class="section grid" style="align-items:center;">
+  <div class="section grid">
     <div>
       <h3>Vision-Guided Pick & Place (ROS 2 + Dobot)</h3>
       <p>
-        Implemented a basic vision-guided pick-and-place system using ROS 2.
-        I separated vision processing and robot control logic to better
-        understand ROS node communication and real robot behavior.
+        Separated vision and motion nodes to understand ROS 2 communication
+        and hardware behavior.
       </p>
-
-      <p style="color:var(--muted); font-size:14px;">
-        What I learned: ROS 2 basics, vision-to-motion flow,
-        and real hardware debugging.
-      </p>
-
-      <span style="color:var(--muted); font-size:13px;">
-        Tools: ROS 2 · OpenCV · Python · Dobot Magician
-      </span>
-
-      <div style="margin-top:12px;">
-        <a class="button" href="Assets/dobot.mp4" target="_blank">
-          ▶ Watch Demo Video
-        </a>
-      </div>
+      <p style="font-size:14px;">Tools: ROS 2 · OpenCV · Python · Dobot</p>
+      <a class="button" href="Assets/dobot.mp4" target="_blank">▶ Watch Demo</a>
     </div>
-
     <div class="card">
-      <img src="Assets/dobot.png" style="width:100%; border-radius:12px;">
+      <img src="Assets/dobot.png">
     </div>
   </div>
 
   <!-- PROJECT 3 -->
-  <div class="section grid" style="align-items:center;">
+  <div class="section grid">
     <div>
       <h3>Custom 3D-Printed Robotic Arm</h3>
       <p>
-        Designed and assembled a small robotic arm to understand
-        mechanical structure, servo control, and basic motion sequencing.
-        This project gave me hands-on experience with hardware issues
-        and calibration challenges.
+        Mechanical design, servo control, and calibration challenges
+        from scratch.
       </p>
-
-      <p style="color:var(--muted); font-size:14px;">
-        What I learned: mechanical assembly, servo control,
-        and practical debugging.
-      </p>
-
-      <span style="color:var(--muted); font-size:13px;">
-        Tools: Python · Servo Motors · Mechanical Design
-      </span>
-
-      <div style="margin-top:12px;">
-        <!--<a class="button" href="Assets/arm.mp4" target="_blank">
-          ▶ Watch Demo Video
-        </a>-->
-      </div>
+      <p style="font-size:14px;">Tools: Python · Servo Motors · CAD</p>
     </div>
-
     <div class="card">
-      <img src="Assets/arm.png" style="width:100%; border-radius:12px;">
+      <img src="Assets/arm.png">
     </div>
   </div>
 
   <!-- PROJECT 4 -->
-  <div class="section grid" style="align-items:center;">
+  <div class="section grid">
     <div>
-      <h3>Omnidirectional Mobile Robot (Mecanum Wheels)</h3>
+      <h3>Omnidirectional Mobile Robot</h3>
       <p>
-        Built a simple omnidirectional robot to explore holonomic motion.
-        Implemented basic wheel kinematics and tested different motion
-        patterns like sideways movement and rotation.
+        Implemented mecanum kinematics and motion testing
+        for holonomic control.
       </p>
-
-      <p style="color:var(--muted); font-size:14px;">
-        What I learned: wheel kinematics, motor control,
-        and motion testing.
-      </p>
-
-      <span style="color:var(--muted); font-size:13px;">
-        Tools: Python · Motor Drivers · Mecanum Kinematics
-      </span>
-
-      <div style="margin-top:12px;">
-        <a class="button" href="Assets/omni_demo.mp4" target="_blank">
-          ▶ Watch Demo Video
-        </a>
-      </div>
+      <p style="font-size:14px;">Tools: Python · Motor Drivers · Kinematics</p>
+      <a class="button" href="Assets/omni_demo.mp4" target="_blank">▶ Watch Demo</a>
     </div>
-
     <div class="card">
-      <img src="Assets/omni.png" style="width:100%; border-radius:12px;">
+      <img src="Assets/omni.png">
     </div>
   </div>
 
-</div>
-
-
-  <!-- ================= FAILURE-FIRST ENGINEERING ================= -->
+  <!-- FAILURE FIRST -->
   <div class="section card">
-    <h2>Failure-First Engineering Approach</h2>
+    <h2>Failure-First Engineering</h2>
     <ul class="list">
-      <li class="fail">Glare & reflections → ROI constraints and preprocessing</li>
-      <li class="fail">False positives → validation rules & fuzzy matching</li>
-      <li class="fail">Latency issues → region-only processing</li>
-      <li class="fail">Unstable inputs → deterministic state handling</li>
+      <li class="fail">Glare → ROI constraints</li>
+      <li class="fail">False positives → validation logic</li>
+      <li class="fail">Latency → region-only processing</li>
+      <li class="fail">Unstable inputs → state machines</li>
     </ul>
   </div>
 
-  <!-- ================= CTA ================= -->
+  <!-- CTA -->
   <div class="section">
-    <a class="button" href="simulator.html">
-      View Inspection Simulator →
-    </a>
+    <a class="button" href="simulator.html">View Inspection Simulator →</a>
   </div>
 
 </div>
