@@ -11,169 +11,170 @@
 
 <body>
 
-<div class="container">
+<main class="container">
 
   <!-- ================= HERO ================= -->
-  <div class="section grid" style="align-items:center;">
+  <header class="section grid hero" id="home">
 
     <!-- TEXT -->
-    <div>
+    <div class="hero-text">
       <span class="badge">ENGINEERING PORTFOLIO</span>
 
       <h1>Naman Sharma</h1>
 
-      <p style="font-size:18px;">
+      <p class="hero-intro">
         I’m driven by curiosity—exploring, experimenting, and learning by building and breaking things.
       </p>
 
-      <p style="margin-top:12px;color:var(--muted);">
+      <p class="hero-roles">
         Target roles: Vision Engineer · Robotics Engineer · Automation Engineer
       </p>
 
-      <div style="margin-top:28px;">
+      <div class="hero-actions">
         <a class="button" href="vision.html">
           Explore Projects →
         </a>
 
-        <a class="button"
-           href="Assets/resume (6).pdf"
-           target="_blank"
-           style="margin-left:12px;
-                  background:linear-gradient(90deg,#38bdf8,#a78bfa);">
+        <a
+          class="button button-gradient"
+          href="Assets/resume (6).pdf"
+          target="_blank"
+        >
           Download Resume 📄
         </a>
       </div>
     </div>
 
     <!-- PHOTO -->
-    <div class="card" style="text-align:center;">
+    <div class="card hero-photo">
       <img
         src="Assets/naman.jpg"
-        alt="Naman Sharma"
-        style="width:200px;height:200px;border-radius:50%;object-fit:cover;"
+        alt="Portrait of Naman Sharma"
       >
-      <p style="margin-top:12px;color:var(--muted);">
+      <p class="hero-caption">
         Mechatronics Engineer<br>
         Robotics • Vision • Automation
       </p>
     </div>
 
-  </div>
+  </header>
 
-  <!-- ================= WHAT YOU’LL FIND ================= -->
-  <div class="section">
+  <!-- ================= OVERVIEW ================= -->
+  <section class="section" id="overview">
     <h2>What You’ll Find Here</h2>
-    <p style="max-width:720px;">
+    <p class="section-text">
       Learning by building, experimenting, and understanding real-world engineering constraints.
     </p>
-  </div>
+  </section>
 
-  <!-- ================= TOOLS & STACK ================= -->
-  <div class="section">
+  <!-- ================= STACK ================= -->
+  <section class="section" id="stack">
     <h2>Tools & Technology Stack</h2>
 
     <div class="grid">
 
-      <div class="card flow green">
+      <article class="card flow green">
         <h3>Computer Vision</h3>
         <p>
           OpenCV · PaddleOCR · Image preprocessing ·
           ROI-based pipelines · Deterministic inspection logic
         </p>
-      </div>
+      </article>
 
-      <div class="card flow">
+      <article class="card flow">
         <h3>Robotics</h3>
         <p>
           ROS2 · Gazebo · URDF · Robot kinematics ·
           Node-based system architecture
         </p>
-      </div>
+      </article>
 
-      <div class="card flow purple">
+      <article class="card flow purple">
         <h3>Automation & Integration</h3>
         <p>
           PLC-style logic · OK/NG signaling ·
           Vision-to-automation handshakes
         </p>
-      </div>
+      </article>
 
-      <div class="card flow">
+      <article class="card flow">
         <h3>Embedded & Compute</h3>
         <p>
-          Jetson · Raspberry Pi · Linux ·Arduino·
+          Jetson · Raspberry Pi · Linux · Arduino ·
           Hardware–software integration
         </p>
-      </div>
+      </article>
 
-      <div class="card flow green">
+      <article class="card flow green">
         <h3>Programming</h3>
         <p>
-          Python · C++ (working knowledge for robotics systems) ·
+          Python · C++ (robotics systems) ·
           Modular design · Debugging
         </p>
-      </div>
+      </article>
 
-      <div class="card flow purple">
+      <article class="card flow purple">
         <h3>Engineering Practices</h3>
         <p>
           Git · Version control · Logging ·
           Deterministic & maintainable system design
         </p>
-      </div>
+      </article>
 
     </div>
-  </div>
+  </section>
 
   <!-- ================= PROOF ================= -->
-  <div class="section">
+  <section class="section" id="proof">
     <h2>See It in Action</h2>
 
     <div class="grid">
 
       <a href="vision.html" class="card flow green">
-        📂 Projects <br>
-        <span style="color:var(--muted);font-size:14px;">
-           Status: Portfolio documents academic projects and ongoing industrial learning. Some systems are prototypes or simulators.
-          
+        📂 Projects
+        <span class="card-subtext">
+          Status: Academic projects and ongoing industrial learning.
+          Some systems are prototypes or simulators.
         </span>
       </a>
 
       <a href="simulator.html" class="card flow">
-        🧪 Inspection Simulator<br>
-        <span style="color:var(--muted);font-size:14px;">
+        🧪 Inspection Simulator
+        <span class="card-subtext">
           Factory-style dashboard, decision flow & OK/NG logic
         </span>
       </a>
 
-     <!-- <a href="walkthrough.html" class="card flow purple">
-        🎥 Video Introduction <br>
-        <span style="color:var(--muted);font-size:14px;">
-          An introduction to my journey, skills, and interests
+      <!--
+      <a href="walkthrough.html" class="card flow purple">
+        🎥 Video Introduction
+        <span class="card-subtext">
+          Journey, skills, and interests
         </span>
-      </a>-->
+      </a>
+      -->
 
     </div>
-  </div>
+  </section>
 
   <!-- ================= ABOUT ================= -->
-  <div class="section card">
+  <section class="section card" id="about">
     <h2>About Me</h2>
     <p>
       I enjoy building end-to-end systems where hardware meets software —
       from perception and decision logic to operator-facing interfaces.
       My focus is on reliability, clarity, and real-world constraints.
     </p>
-  </div>
+  </section>
 
   <!-- ================= FOOTER ================= -->
-  <div class="section" style="margin-top:80px;">
-    <p style="color:var(--muted);">
+  <footer class="section footer">
+    <p>
       📄 <a href="Assets/resume (6).pdf" target="_blank">Resume</a>
     </p>
-  </div>
+  </footer>
 
-</div>
+</main>
 
 </body>
 </html>
