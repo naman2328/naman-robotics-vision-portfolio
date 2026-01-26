@@ -26,11 +26,11 @@
       line-height: 1.6;
     }
 
-    a { text-decoration: none; color: inherit; }
+    a { color: inherit; text-decoration: none; }
 
     /* ================= CONTAINER ================= */
     .container {
-      max-width: 1180px; /* increased */
+      max-width: 1180px;
       margin: auto;
       padding: 40px 20px 80px;
     }
@@ -60,12 +60,7 @@
       margin-bottom: 14px;
     }
 
-    h1 {
-      font-size: 38px;
-      margin: 0 0 12px;
-      line-height: 1.2;
-    }
-
+    h1 { font-size: 38px; margin-bottom: 12px; }
     h2 { font-size: 26px; margin-bottom: 16px; }
     h3 { font-size: 22px; margin-bottom: 10px; }
 
@@ -83,7 +78,7 @@
     /* ================= GRID ================= */
     .grid {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr; /* image slightly bigger */
+      grid-template-columns: 1.1fr 0.9fr;
       gap: 36px;
       align-items: center;
     }
@@ -97,10 +92,10 @@
     .img-card img {
       width: 100%;
       border-radius: 12px;
-      max-height: 320px; /* increased size */
+      max-height: 340px;   /* increased size */
       object-fit: cover;
       cursor: zoom-in;
-      transition: transform 0.3s ease;
+      transition: transform 0.25s ease;
     }
 
     .img-card img:hover {
@@ -110,7 +105,7 @@
     /* ================= BUTTON ================= */
     .button {
       display: inline-block;
-      margin-top: 14px;
+      margin-top: 12px;
       padding: 10px 18px;
       background: var(--accent);
       color: #000;
@@ -118,6 +113,19 @@
       font-weight: 600;
       font-size: 14px;
     }
+
+    /* ================= FAILURE LIST ================= */
+    .list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .list li {
+      padding: 8px 0;
+      border-bottom: 1px solid #222;
+    }
+
+    .fail { color: #ff7a7a; }
 
     /* ================= LIGHTBOX ================= */
     .lightbox {
@@ -134,38 +142,28 @@
       max-width: 90%;
       max-height: 90%;
       border-radius: 14px;
-      box-shadow: 0 0 40px rgba(0,0,0,0.6);
     }
 
-    .lightbox.active {
-      display: flex;
-    }
+    .lightbox.active { display: flex; }
 
-    /* ================= LAPTOP BREAKPOINT ================= */
+    /* ================= LAPTOP ================= */
     @media (max-width: 1366px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      h1 { font-size: 34px; }
-
-      .img-card img {
-        max-height: 260px;
-      }
+      .grid { grid-template-columns: 1fr; }
+      .img-card img { max-height: 280px; }
     }
   </style>
 </head>
 
 <body>
 
-<a href="index.html" class="sticky-back-btn">← Back</a>
+<a href="index.html" class="sticky-back-btn">← Back to Home</a>
 
 <div class="container">
 
   <span class="badge">INDUSTRIAL COMPUTER VISION</span>
   <h1>Vision Inspection & Robotics Systems</h1>
 
-  <p>
+  <p style="max-width:900px;">
     Status: Portfolio documents academic projects and ongoing industrial learning.
     Some systems are prototypes or simulators.
   </p>
@@ -173,9 +171,9 @@
   <div class="section card">
     <h2>Why Vision Systems Fail in Factories</h2>
     <p>
-      Real production environments introduce glare, vibration, inconsistent positioning,
-      and strict timing. Vision pipelines that work in labs often collapse without
-      deterministic logic.
+      Real production environments introduce glare, vibration, inconsistent part
+      positioning, and timing constraints. Naive vision pipelines that work in
+      controlled conditions often fail without deterministic logic and validation.
     </p>
   </div>
 
@@ -184,19 +182,33 @@
     <div class="grid">
       <div class="card flow">Camera Capture</div>
       <div class="card flow">ROI Locking</div>
-      <div class="card flow">OCR / Vision</div>
-      <div class="card flow green">OK / NG Logic</div>
-      <div class="card flow purple">Traceability</div>
+      <div class="card flow">OCR / Vision Processing</div>
+      <div class="card flow green">OK / NG Decision Logic</div>
+      <div class="card flow purple">Logging & Traceability</div>
     </div>
   </div>
 
   <!-- PROJECT 1 -->
   <div class="section grid">
     <div>
-      <h3>OCR-Based Vision Inspection</h3>
-      <p>Offline OCR inspection with ROI locking and confidence logic.</p>
-      <p style="font-size:14px;">Tools: PaddleOCR · OpenCV · Jetson</p>
+      <h3>OCR-Based Vision Inspection (Jetson Orin Nano)</h3>
+      <p>
+        Built an offline OCR inspection setup using PaddleOCR to understand how
+        text detection and recognition behave on real camera images.
+        The project helped me learn ROI selection, confidence handling,
+        and basic OK / NG decision logic.
+      </p>
+
+      <p style="font-size:14px;">
+        What I learned: OCR limitations, lighting impact, ROI importance,
+        and basic inspection logic.
+      </p>
+
+      <span style="font-size:13px;">
+        Tools: PaddleOCR · OpenCV · Python · Jetson Orin Nano
+      </span>
     </div>
+
     <div class="card img-card">
       <img src="Assets/ocr.jpeg" onclick="openLightbox(this)">
     </div>
@@ -205,10 +217,29 @@
   <!-- PROJECT 2 -->
   <div class="section grid">
     <div>
-      <h3>Vision-Guided Pick & Place</h3>
-      <p>ROS 2 based vision-to-motion pipeline.</p>
-      <a class="button" href="Assets/dobot.mp4" target="_blank">▶ Watch Demo</a>
+      <h3>Vision-Guided Pick & Place (ROS 2 + Dobot)</h3>
+      <p>
+        Implemented a basic vision-guided pick-and-place system using ROS 2.
+        I separated vision processing and robot control logic to better
+        understand ROS node communication and real robot behavior.
+      </p>
+
+      <p style="font-size:14px;">
+        What I learned: ROS 2 basics, vision-to-motion flow,
+        and real hardware debugging.
+      </p>
+
+      <span style="font-size:13px;">
+        Tools: ROS 2 · OpenCV · Python · Dobot Magician
+      </span>
+
+      <div>
+        <a class="button" href="Assets/dobot.mp4" target="_blank">
+          ▶ Watch Demo Video
+        </a>
+      </div>
     </div>
+
     <div class="card img-card">
       <img src="Assets/dobot.png" onclick="openLightbox(this)">
     </div>
@@ -217,9 +248,24 @@
   <!-- PROJECT 3 -->
   <div class="section grid">
     <div>
-      <h3>Custom Robotic Arm</h3>
-      <p>Mechanical assembly, servo control, and calibration.</p>
+      <h3>Custom 3D-Printed Robotic Arm</h3>
+      <p>
+        Designed and assembled a small robotic arm to understand
+        mechanical structure, servo control, and basic motion sequencing.
+        This project gave me hands-on experience with hardware issues
+        and calibration challenges.
+      </p>
+
+      <p style="font-size:14px;">
+        What I learned: mechanical assembly, servo control,
+        and practical debugging.
+      </p>
+
+      <span style="font-size:13px;">
+        Tools: Python · Servo Motors · Mechanical Design
+      </span>
     </div>
+
     <div class="card img-card">
       <img src="Assets/arm.png" onclick="openLightbox(this)">
     </div>
@@ -228,13 +274,48 @@
   <!-- PROJECT 4 -->
   <div class="section grid">
     <div>
-      <h3>Omnidirectional Robot</h3>
-      <p>Mecanum kinematics and motion testing.</p>
-      <a class="button" href="Assets/omni_demo.mp4" target="_blank">▶ Watch Demo</a>
+      <h3>Omnidirectional Mobile Robot (Mecanum Wheels)</h3>
+      <p>
+        Built a simple omnidirectional robot to explore holonomic motion.
+        Implemented basic wheel kinematics and tested different motion
+        patterns like sideways movement and rotation.
+      </p>
+
+      <p style="font-size:14px;">
+        What I learned: wheel kinematics, motor control,
+        and motion testing.
+      </p>
+
+      <span style="font-size:13px;">
+        Tools: Python · Motor Drivers · Mecanum Kinematics
+      </span>
+
+      <div>
+        <a class="button" href="Assets/omni_demo.mp4" target="_blank">
+          ▶ Watch Demo Video
+        </a>
+      </div>
     </div>
+
     <div class="card img-card">
       <img src="Assets/omni.png" onclick="openLightbox(this)">
     </div>
+  </div>
+
+  <div class="section card">
+    <h2>Failure-First Engineering Approach</h2>
+    <ul class="list">
+      <li class="fail">Glare & reflections → ROI constraints and preprocessing</li>
+      <li class="fail">False positives → validation rules & fuzzy matching</li>
+      <li class="fail">Latency issues → region-only processing</li>
+      <li class="fail">Unstable inputs → deterministic state handling</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <a class="button" href="simulator.html">
+      View Inspection Simulator →
+    </a>
   </div>
 
 </div>
@@ -246,15 +327,15 @@
 
 <script>
   function openLightbox(img) {
-    document.getElementById('lightbox-img').src = img.src;
-    document.getElementById('lightbox').classList.add('active');
+    document.getElementById("lightbox-img").src = img.src;
+    document.getElementById("lightbox").classList.add("active");
   }
 
   function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('active');
+    document.getElementById("lightbox").classList.remove("active");
   }
 
-  document.addEventListener('keydown', e => {
+  document.addEventListener("keydown", e => {
     if (e.key === "Escape") closeLightbox();
   });
 </script>
