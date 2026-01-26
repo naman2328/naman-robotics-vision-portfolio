@@ -1,75 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vision & Automation | Naman Sharma</title>
-
+  <title>Vision + Automation</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-<main class="container">
+<div class="container">
 
-  <!-- ================= HEADER ================= -->
-  <header class="section" id="vision-automation">
-    <span class="badge">INDUSTRIAL AUTOMATION</span>
-    <h1>Vision ↔ Automation Flow</h1>
+<span class="badge">INDUSTRIAL AUTOMATION</span>
+<h1>Vision ↔ Automation Flow</h1>
 
-    <p class="section-text">
-      Inspection systems must communicate deterministic decisions to automation
-      logic within strict cycle-time and reliability constraints.
-    </p>
-  </header>
+<p>
+  Inspection systems must communicate deterministic decisions to automation
+  logic within strict cycle times.
+</p>
 
-  <!-- ================= FLOW ================= -->
-  <section class="section">
-    <div class="grid">
+<div class="section grid">
+  <div class="card flow">Trigger Capture</div>
+  <div class="card flow">Vision Inspection</div>
+  <div class="card flow green">OK / NG Signal</div>
+  <div class="card flow">PLC Action</div>
+</div>
 
-      <article class="card flow">
-        <h3>Trigger & Capture</h3>
-        <p>
-          Hardware or PLC-triggered image acquisition synchronized
-          with the production cycle.
-        </p>
-      </article>
+<a class="button" href="simulator.html">View Simulator →</a>
 
-      <article class="card flow">
-        <h3>Vision Inspection</h3>
-        <p>
-          ROI-based inspection pipelines producing stable,
-          repeatable measurements and classifications.
-        </p>
-      </article>
-
-      <article class="card flow green">
-        <h3>OK / NG Decision</h3>
-        <p>
-          Deterministic rule-based or ML-assisted logic converting
-          vision output into actionable decisions.
-        </p>
-      </article>
-
-      <article class="card flow">
-        <h3>PLC / Automation Action</h3>
-        <p>
-          Handshake with PLCs, actuators, or dashboards to
-          trigger accept/reject, alarms, or logging.
-        </p>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- ================= CTA ================= -->
-  <section class="section">
-    <a class="button" href="simulator.html">
-      View Inspection Simulator →
-    </a>
-  </section>
-
-</main>
-
+</div>
 </body>
 </html>
