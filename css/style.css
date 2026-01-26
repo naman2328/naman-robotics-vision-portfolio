@@ -12,7 +12,9 @@
   --red: #fb7185;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -21,25 +23,51 @@ body {
   color: var(--text);
 }
 
+/* ================= CONTAINER ================= */
+
 .container {
   max-width: 1200px;
   margin: auto;
   padding: 64px 24px;
 }
 
+/* ================= TYPOGRAPHY ================= */
+
 h1 {
   font-size: 52px;
   margin: 10px 0;
-  background: linear-gradient(90deg, var(--blue), var(--purple), var(--pink));
+  background: linear-gradient(
+    90deg,
+    var(--blue),
+    var(--purple),
+    var(--pink)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-h2 { margin-top: 0; }
+h2 {
+  margin-top: 0;
+}
 
-p { color: var(--muted); max-width: 900px; }
+p {
+  color: var(--muted);
+  max-width: 900px;
+}
 
-.section { margin-top: 56px; }
+/* ================= LAYOUT ================= */
+
+.section {
+  margin-top: 56px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+/* ================= CARDS ================= */
 
 .card {
   background: var(--card);
@@ -49,18 +77,19 @@ p { color: var(--muted); max-width: 900px; }
   backdrop-filter: blur(14px);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
-}
-
 .flow {
   border-left: 4px solid var(--blue);
 }
 
-.flow.green { border-color: var(--green); }
-.flow.purple { border-color: var(--purple); }
+.flow.green {
+  border-color: var(--green);
+}
+
+.flow.purple {
+  border-color: var(--purple);
+}
+
+/* ================= BADGE ================= */
 
 .badge {
   display: inline-block;
@@ -76,21 +105,103 @@ p { color: var(--muted); max-width: 900px; }
   border: 1px solid var(--border);
 }
 
-.list li { margin-bottom: 12px; color: var(--muted); }
+/* ================= LISTS ================= */
 
-.ok { color: var(--green); font-weight: bold; }
-.fail { color: var(--red); font-weight: bold; }
+.list li {
+  margin-bottom: 12px;
+  color: var(--muted);
+}
+
+.ok {
+  color: var(--green);
+  font-weight: bold;
+}
+
+.fail {
+  color: var(--red);
+  font-weight: bold;
+}
+
+/* ================= BUTTON ================= */
 
 .button {
   display: inline-block;
   margin-top: 22px;
   padding: 14px 26px;
   border-radius: 14px;
-  background: linear-gradient(90deg, var(--green), var(--blue));
+  background: linear-gradient(
+    90deg,
+    var(--green),
+    var(--blue)
+  );
   color: #022c22;
   font-weight: 700;
   text-decoration: none;
   box-shadow: 0 0 26px rgba(34,197,94,0.35);
 }
 
-a { text-decoration: none; color: inherit; }
+/* ================= LINKS ================= */
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* =========================================================
+   💻 DESKTOP OPTIMIZATION (IMPORTANT PART)
+   ========================================================= */
+
+@media (min-width: 1024px) {
+
+  /* Typography scale */
+  h1 {
+    font-size: 42px; /* was 52px */
+  }
+
+  h2 {
+    font-size: 26px;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  /* Container density */
+  .container {
+    padding: 48px 24px; /* tighter */
+  }
+
+  /* Section spacing */
+  .section {
+    margin-top: 36px; /* was 56px */
+  }
+
+  /* Grid control */
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Cards less bulky */
+  .card {
+    padding: 22px;
+    border-radius: 16px;
+  }
+
+  /* Buttons scale */
+  .button {
+    padding: 12px 22px;
+    font-size: 15px;
+  }
+}
+
+/* =========================================================
+   🖥 ULTRA-WIDE SCREENS (OPTIONAL BUT PRO)
+   ========================================================= */
+
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1100px;
+  }
+}
+
