@@ -1,244 +1,191 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Industrial Vision Simulator</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inspection Simulator | Naman Sharma</title>
   <link rel="stylesheet" href="css/style.css">
-
-  <!-- OCR ENGINE (WEB ONLY) -->
-  <script src="https://unpkg.com/tesseract.js@5.0.4/dist/tesseract.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 </head>
 <body>
-
-<div class="container">
-  <div class="container">
-  <!-- BACK BUTTON -->
-<div style="margin-bottom:24px;">
-  <a href="index.html" class="sticky-back-btn">
-    ← Back to Home
-  </a>
-</div>
-
-
-<span class="badge">INSPECTION SIMULATOR</span>
-<h1>Industrial Vision Dashboard (Web Simulator)</h1>
-
-<!-- ================= DISCLAIMER ================= -->
-<div class="section card">
-  <p style="color:#facc15; font-size:14px;">
-    ⚠️ <b>Important:</b> This is a browser-based simulator created to demonstrate
-    system workflow and inspection logic.
-    The <b>actual production system</b> runs as a Qt application using
-    PaddleOCR, barcode decoding, and industrial cameras.
-    It just show that how does real application looklike.
-  </p>
-</div>
-
-<!-- ================= CAMERA + STATUS ================= -->
-<div class="section grid">
-
-  <!-- CAMERA PANEL -->
-  <div class="card">
-    <h2>Camera Feed (Webcam)</h2>
-
-    <div style="position:relative;">
-      <video id="video" autoplay muted playsinline
-             style="width:100%; border-radius:8px; background:#000;"></video>
-      <canvas id="overlay"
-              style="position:absolute; top:0; left:0;"></canvas>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html">Naman <span>Sharma</span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="vision.html">Projects</a>
+        <a class="nav-link" href="automation.html">Automation</a>
+        <a class="nav-link active" href="simulator.html">Simulator</a>
+      </nav>
     </div>
+  </header>
 
-    <p style="color:var(--muted); margin-top:8px;">
-      Click & drag to define ROI
-    </p>
-  </div>
+  <main class="container">
+    <section>
+      <span class="badge">Interactive Demo</span>
+      <h1><span class="gradient">Factory-style OCR inspection simulator</span></h1>
+      <p class="lead">Grant camera access, position text inside the inspection box, and run a pass/fail check against the expected serial code.</p>
+      <p class="note">Browser-only prototype for demonstration. For production use, OCR should run in a controlled edge compute environment.</p>
+    </section>
 
-  <!-- STATUS PANEL -->
-  <div class="card">
-    <h2>Inspection Status</h2>
+    <section class="section sim-wrap">
+      <article class="card">
+        <h3>Live camera</h3>
+        <div class="video-shell">
+          <video id="video" autoplay playsinline muted></video>
+          <canvas id="overlay"></canvas>
+        </div>
+        <div class="actions">
+          <button id="startCam" class="btn btn-secondary" type="button">Start camera</button>
+          <button id="inspectBtn" class="btn btn-primary" type="button">Run inspection</button>
+        </div>
+      </article>
 
-    <p>System: <span id="systemStatus" class="ok">READY</span></p>
-    <p>Detected Text: <span id="ocrText">---</span></p>
-    <p>Result: <span id="resultText">---</span></p>
-    <p>Confidence: <span id="confidence">---</span></p>
-    <p>Cycle Time: <span id="cycleTime">---</span></p>
+      <article class="card">
+        <h3>Inspection setup</h3>
+        <label for="expectedText">Expected text</label>
+        <input id="expectedText" type="text" value="NMN-2026" class="input">
+        <div class="kpi"><span>Result</span><span id="decision" class="meta">Waiting</span></div>
+        <div class="kpi"><span>Detected</span><span id="detected" class="meta">-</span></div>
+        <div class="kpi"><span>Similarity</span><span id="score" class="meta">-</span></div>
+        <h3 class="mt-18">Logs</h3>
+        <div id="logs" class="log-panel"></div>
+      </article>
+    </section>
 
-    <div style="margin-top:16px;">
-      <button class="button" onclick="runOCR()">Single Capture</button>
-    </div>
-  </div>
+    <p class="footer">Tip: keep text centered in the rectangle for better OCR confidence.</p>
+  </main>
 
-</div>
-
-<!-- ================= LOGS ================= -->
-<div class="section card">
-  <h2>System Logs</h2>
-  <div id="logs"
-       style="
-         background:#0b1220;
-         padding:12px;
-         height:160px;
-         overflow-y:auto;
-         font-family:monospace;
-         font-size:13px;
-         border-radius:8px;
-       ">
-  </div>
-</div>
-
-<!-- ================= LOGIC EXPLANATION ================= -->
-<div class="section card">
-  <h2>Inspection Logic (Mirrored)</h2>
-  <p style="color:var(--muted); max-width:900px;">
-    OCR → Text normalization → Fuzzy matching → OK / NG decision →
-    Confidence & timing → Logging.
-    The same decision logic is used in the Qt-based production system,
-    while the OCR engine differs for web compatibility.
-  </p>
-</div>
-
-</div>
-
-<!-- ================= SCRIPT ================= -->
 <script>
-/* ================= CONFIG ================= */
+const video = document.getElementById('video');
+const overlay = document.getElementById('overlay');
+const ctx = overlay.getContext('2d');
+const logs = document.getElementById('logs');
+const decision = document.getElementById('decision');
+const detected = document.getElementById('detected');
+const scoreNode = document.getElementById('score');
+const inspectBtn = document.getElementById('inspectBtn');
+const startCamBtn = document.getElementById('startCam');
+const expectedInput = document.getElementById('expectedText');
 
-// Expected entries (demo)
-const expectedEntries = ["ABC123", "LOT45"];
-
-// Match threshold (similar to difflib)
-const MATCH_THRESHOLD = 0.95;
-
-/* ================= STATE ================= */
 let roi = null;
-let drawing = false;
-let startX, startY;
+let streamStarted = false;
 
-/* ================= ELEMENTS ================= */
-const video = document.getElementById("video");
-const canvas = document.getElementById("overlay");
-const ctx = canvas.getContext("2d");
-
-const systemStatus = document.getElementById("systemStatus");
-const ocrTextEl = document.getElementById("ocrText");
-const resultText = document.getElementById("resultText");
-const confidenceEl = document.getElementById("confidence");
-const cycleTimeEl = document.getElementById("cycleTime");
-const logs = document.getElementById("logs");
-
-/* ================= CAMERA ================= */
-navigator.mediaDevices.getUserMedia({ video: true })
-  .then(stream => {
-    video.srcObject = stream;
-    video.onloadedmetadata = () => {
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      log("Webcam stream started");
-    };
-  })
-  .catch(() => alert("Camera access denied"));
-
-/* ================= ROI DRAW ================= */
-canvas.addEventListener("mousedown", e => {
-  drawing = true;
-  startX = e.offsetX;
-  startY = e.offsetY;
-});
-
-canvas.addEventListener("mousemove", e => {
-  if (!drawing) return;
-  draw();
-  drawRect(startX, startY, e.offsetX - startX, e.offsetY - startY, "#facc15");
-});
-
-canvas.addEventListener("mouseup", e => {
-  drawing = false;
-  roi = {
-    x: Math.min(startX, e.offsetX),
-    y: Math.min(startY, e.offsetY),
-    w: Math.abs(e.offsetX - startX),
-    h: Math.abs(e.offsetY - startY)
-  };
-  log("ROI defined");
-  draw();
-});
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  if (roi) drawRect(roi.x, roi.y, roi.w, roi.h, "#22c55e");
+function log(message) {
+  const stamp = new Date().toLocaleTimeString();
+  logs.innerHTML = `<div>[${stamp}] ${message}</div>` + logs.innerHTML;
 }
 
-function drawRect(x, y, w, h, color) {
-  ctx.strokeStyle = color;
-  ctx.lineWidth = 2;
-  ctx.strokeRect(x, y, w, h);
+function normalize(value) {
+  return value.toUpperCase().replace(/[^A-Z0-9]/g, '');
 }
 
-/* ================= TEXT LOGIC ================= */
-function normalize(text) {
-  return text.toLowerCase().replace(/\s/g, "").replace(/[.,]/g, "");
+function levenshtein(a, b) {
+  const dp = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+  for (let j = 1; j <= b.length; j++) dp[0][j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + cost);
+    }
+  }
+  return dp[a.length][b.length];
 }
 
 function similarity(a, b) {
-  let matches = 0;
-  for (let i = 0; i < Math.min(a.length, b.length); i++) {
-    if (a[i] === b[i]) matches++;
+  if (!a || !b) return 0;
+  const distance = levenshtein(a, b);
+  return Math.max(0, 1 - distance / Math.max(a.length, b.length));
+}
+
+function drawROI() {
+  if (!video.videoWidth) return;
+  overlay.width = video.videoWidth;
+  overlay.height = video.videoHeight;
+  const w = Math.floor(video.videoWidth * 0.62);
+  const h = Math.floor(video.videoHeight * 0.26);
+  const x = Math.floor((video.videoWidth - w) / 2);
+  const y = Math.floor((video.videoHeight - h) / 2);
+  roi = { x, y, w, h };
+
+  ctx.clearRect(0, 0, overlay.width, overlay.height);
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = '#58b8ff';
+  ctx.strokeRect(x, y, w, h);
+  ctx.fillStyle = 'rgba(0,0,0,0.22)';
+  ctx.fillRect(0, 0, overlay.width, y);
+  ctx.fillRect(0, y + h, overlay.width, overlay.height - (y + h));
+  ctx.fillRect(0, y, x, h);
+  ctx.fillRect(x + w, y, overlay.width - (x + w), h);
+}
+
+async function startCamera() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
+    video.srcObject = stream;
+    streamStarted = true;
+    log('Camera started successfully.');
+    video.addEventListener('loadedmetadata', drawROI, { once: true });
+    window.addEventListener('resize', drawROI);
+  } catch (error) {
+    log(`Camera error: ${error.message}`);
+    decision.textContent = 'Camera unavailable';
+    decision.className = 'ng';
   }
-  return matches / Math.max(a.length, b.length);
 }
 
-function isMatch(expected, detected) {
-  const exp = normalize(expected);
-  return detected.some(d =>
-    similarity(exp, normalize(d)) >= MATCH_THRESHOLD
-  );
-}
-
-/* ================= OCR ================= */
-async function runOCR() {
-  if (!roi) {
-    alert("Define ROI first");
+async function runInspection() {
+  if (!streamStarted) {
+    log('Please start camera before inspection.');
+    return;
+  }
+  drawROI();
+  if (!roi || roi.w < 80 || roi.h < 50) {
+    log('ROI too small to process.');
     return;
   }
 
-  systemStatus.innerText = "PROCESSING";
-  log("OCR cycle started");
+  inspectBtn.disabled = true;
+  inspectBtn.textContent = 'Processing...';
+  log('Capturing ROI and running OCR...');
 
-  const t0 = performance.now();
+  try {
+    const temp = document.createElement('canvas');
+    temp.width = roi.w;
+    temp.height = roi.h;
+    const tctx = temp.getContext('2d');
+    tctx.drawImage(video, roi.x, roi.y, roi.w, roi.h, 0, 0, roi.w, roi.h);
 
-  const temp = document.createElement("canvas");
-  temp.width = roi.w;
-  temp.height = roi.h;
-  temp.getContext("2d").drawImage(
-    video,
-    roi.x, roi.y, roi.w, roi.h,
-    0, 0, roi.w, roi.h
-  );
+    const { data } = await Tesseract.recognize(temp, 'eng', { logger: () => {} });
+    const raw = (data?.text || '').trim();
+    const expected = normalize(expectedInput.value);
+    const observed = normalize(raw);
+    const sim = similarity(expected, observed);
 
-  const result = await Tesseract.recognize(temp, "eng");
-  const words = result.data.words.map(w => w.text).filter(Boolean);
+    detected.textContent = raw || '(none)';
+    scoreNode.textContent = `${Math.round(sim * 100)}%`;
 
-  ocrTextEl.innerText = words.join(" | ") || "(no text)";
-  confidenceEl.innerText = result.data.confidence.toFixed(1) + "%";
-
-  const matched = expectedEntries.filter(e => isMatch(e, words));
-  const status = matched.length === expectedEntries.length ? "OK" : "NG";
-
-  resultText.innerText = status;
-  resultText.className = status === "OK" ? "ok" : "fail";
-
-  cycleTimeEl.innerText =
-    ((performance.now() - t0) / 1000).toFixed(2) + " s";
-
-  systemStatus.innerText = "READY";
-  log(`OCR completed → ${status}`);
+    if (sim >= 0.7) {
+      decision.textContent = 'PASS (OK)';
+      decision.className = 'ok';
+      log(`PASS: matched with ${Math.round(sim * 100)}% similarity.`);
+    } else {
+      decision.textContent = 'FAIL (NG)';
+      decision.className = 'ng';
+      log(`FAIL: expected ${expected || '-'}, got ${observed || '-'}.`);
+    }
+  } catch (error) {
+    decision.textContent = 'Inspection error';
+    decision.className = 'ng';
+    log(`OCR runtime error: ${error.message}`);
+  } finally {
+    inspectBtn.disabled = false;
+    inspectBtn.textContent = 'Run inspection';
+  }
 }
 
-/* ================= LOGGING ================= */
-function log(msg) {
-  logs.innerHTML += `[${new Date().toLocaleTimeString()}] ${msg}<br>`;
-  logs.scrollTop = logs.scrollHeight;
-}
+startCamBtn.addEventListener('click', startCamera);
+inspectBtn.addEventListener('click', runInspection);
 </script>
-
 </body>
 </html>
