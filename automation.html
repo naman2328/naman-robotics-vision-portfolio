@@ -1,30 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Vision + Automation</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automation | Naman Sharma</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html">Naman <span>Sharma</span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="vision.html">Projects</a>
+        <a class="nav-link" href="robotics.html">Robotics</a>
+        <a class="nav-link active" href="automation.html">Automation</a>
+        <a class="nav-link" href="simulator.html">Simulator</a>
+      </nav>
+    </div>
+  </header>
 
-<div class="container">
+  <main class="container">
+    <section>
+      <span class="badge">Vision + Automation</span>
+      <h1><span class="gradient">Reliable decision flow for production lines</span></h1>
+      <p class="lead">A useful vision pipeline is not just detection quality—it is how confidently and quickly the result drives machine behavior without ambiguity.</p>
+    </section>
 
-<span class="badge">INDUSTRIAL AUTOMATION</span>
-<h1>Vision ↔ Automation Flow</h1>
+    <section class="section grid">
+      <article class="card col-4">
+        <h3>1. Trigger</h3>
+        <p>Capture event starts from a deterministic machine state.</p>
+      </article>
+      <article class="card col-4">
+        <h3>2. Inspect</h3>
+        <p>Image/OCR workflow extracts critical part information and confidence.</p>
+      </article>
+      <article class="card col-4">
+        <h3>3. Actuate</h3>
+        <p>System publishes explicit OK/NG outcome to downstream logic.</p>
+      </article>
+    </section>
 
-<p>
-  Inspection systems must communicate deterministic decisions to automation
-  logic within strict cycle times.
-</p>
+    <section class="section card">
+      <h2>Design priorities</h2>
+      <div class="pill-list">
+        <span class="pill">Fail-safe defaults</span>
+        <span class="pill">Cycle-time awareness</span>
+        <span class="pill">Operator clarity</span>
+        <span class="pill">Audit-friendly logs</span>
+      </div>
+      <div class="actions">
+        <a class="btn btn-primary" href="simulator.html">Open live simulator</a>
+      </div>
+    </section>
 
-<div class="section grid">
-  <div class="card flow">Trigger Capture</div>
-  <div class="card flow">Vision Inspection</div>
-  <div class="card flow green">OK / NG Signal</div>
-  <div class="card flow">PLC Action</div>
-</div>
-
-<a class="button" href="simulator.html">View Simulator →</a>
-
-</div>
+    <p class="footer">The simulator demonstrates these principles in a browser-based flow.</p>
+  </main>
 </body>
 </html>

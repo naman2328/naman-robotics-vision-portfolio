@@ -1,28 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Robotics</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Robotics | Naman Sharma</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html">Naman <span>Sharma</span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="vision.html">Projects</a>
+        <a class="nav-link active" href="robotics.html">Robotics</a>
+        <a class="nav-link" href="automation.html">Automation</a>
+      </nav>
+    </div>
+  </header>
 
-<div class="container">
+  <main class="container">
+    <section>
+      <span class="badge">Robotics Systems</span>
+      <h1><span class="gradient">Simulation-first robotics mindset</span></h1>
+      <p class="lead">I approach robotics as an integrated stack: perception, planning, execution, and recovery. Even prototypes are built with future real-world constraints in mind.</p>
+    </section>
 
-<span class="badge">ROBOTICS & ROS2</span>
-<h1>Robotic Systems</h1>
+    <section class="section grid">
+      <article class="card col-6">
+        <h3>Architecture focus</h3>
+        <ul>
+          <li>Modular nodes and clean interfaces.</li>
+          <li>Task sequencing with clear state transitions.</li>
+          <li>Sensor-to-action traceability for debugging.</li>
+        </ul>
+      </article>
+      <article class="card col-6">
+        <h3>Current direction</h3>
+        <ul>
+          <li>ROS2 + simulation workflows.</li>
+          <li>Robot arm control and calibration discipline.</li>
+          <li>Vision-assisted manipulation experiments.</li>
+        </ul>
+      </article>
+    </section>
 
-<p>
-  Robotics systems designed with a simulation-first mindset focusing on
-  perception, decision-making, and safe motion.
-</p>
-
-<div class="section grid">
-  <div class="card flow">Perception</div>
-  <div class="card flow">Decision Logic</div>
-  <div class="card flow">Motion Planning</div>
-  <div class="card flow purple">Simulation-First Design</div>
-</div>
-
-</div>
+    <p class="footer">See project media and demonstrations in the Projects page.</p>
+  </main>
 </body>
 </html>
