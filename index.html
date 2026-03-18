@@ -1,240 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Naman Sharma | Robotics & AI Engineer</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naman Sharma | Robotics & Vision Engineer</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-}
-
-body {
-    background: linear-gradient(180deg, #020617, #0f172a);
-    color: #e2e8f0;
-    overflow-x: hidden;
-}
-
-/* Smooth Scroll */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Container */
-.container {
-    width: 90%;
-    max-width: 1100px;
-    margin: auto;
-    padding: 60px 0;
-}
-
-/* HERO */
-.hero {
-    text-align: center;
-    padding: 100px 0;
-    animation: fadeIn 1.2s ease-in-out;
-}
-
-.hero h1 {
-    font-size: 3rem;
-    background: linear-gradient(90deg, #38bdf8, #818cf8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.hero p {
-    margin-top: 15px;
-    font-size: 1.2rem;
-    color: #94a3b8;
-}
-
-/* Glass Card */
-.card {
-    background: rgba(30, 41, 59, 0.6);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 25px;
-    margin-bottom: 30px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(56,189,248,0.2);
-}
-
-/* Sections */
-.section {
-    margin-bottom: 80px;
-}
-
-h2 {
-    margin-bottom: 20px;
-    color: #38bdf8;
-}
-
-/* Badges */
-.badge {
-    display: inline-block;
-    background: #38bdf8;
-    color: #020617;
-    padding: 5px 10px;
-    border-radius: 6px;
-    margin: 5px;
-    font-size: 0.8rem;
-}
-
-/* Fade Animation */
-.fade {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: 0.8s ease;
-}
-
-.fade.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Diagram Box */
-.diagram {
-    background: #020617;
-    padding: 15px;
-    border-radius: 10px;
-    margin-top: 15px;
-    font-size: 0.9rem;
-    color: #94a3b8;
-    border: 1px solid #1e293b;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 30px;
-    color: #64748b;
-}
-
-/* Animation */
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-</style>
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
 <div class="container">
 
-<!-- HERO -->
-<section class="hero">
-    <h1>Naman Sharma</h1>
-    <p>I build autonomous robotic systems using ROS2, computer vision, and AI.</p>
+  <!-- ================= HERO ================= -->
+  <div class="section grid" style="align-items:center;">
 
+    <!-- TEXT -->
     <div>
-        <span class="badge">ROS2</span>
-        <span class="badge">Computer Vision</span>
-        <span class="badge">AI Systems</span>
-    </div>
-</section>
+      <span class="badge">ENGINEERING PORTFOLIO</span>
 
-<!-- VALUE -->
-<section class="section fade">
-    <h2>What I Bring</h2>
-    <div class="card">
-        <ul>
-            <li>ROS2, SLAM, Hybrid A* path planning</li>
-            <li>End-to-end robotics systems</li>
-            <li>Simulation: Gazebo, RViz</li>
-            <li>Computer vision + hardware integration</li>
-        </ul>
-    </div>
-</section>
+      <h1>Naman Sharma</h1>
 
-<!-- PROJECTS -->
-<section class="section fade">
-    <h2>Projects</h2>
+      <p style="font-size:18px;">
+        I’m driven by curiosity—exploring, experimenting, and learning by building and breaking things.
+      </p>
 
-    <div class="card">
-        <h3>Autonomous Navigation (ROS2)</h3>
-        <p>Real-time robot navigation with obstacle avoidance and replanning.</p>
+      <p style="margin-top:12px;color:var(--muted);">
+        Target roles: Vision Engineer · Robotics Engineer · Automation Engineer
+      </p>
 
-        <div class="diagram">
-            Sensor → SLAM → Planner (Hybrid A*) → Controller → Robot Motion
-        </div>
+      <div style="margin-top:28px;">
+        <a class="button" href="vision.html">
+          Explore Projects →
+        </a>
 
-        <p><b>Tech:</b> ROS2, Nav2, Gazebo</p>
-        <p><b>Result:</b> Smooth real-time navigation</p>
+        <a class="button"
+           href="Assets/Naman Sharmaresume.pdf"
+           target="_blank"
+           style="margin-left:12px;
+                  background:linear-gradient(90deg,#38bdf8,#a78bfa);">
+          Download Resume 📄
+        </a>
+      </div>
     </div>
 
-    <div class="card">
-        <h3>Vision-Based Robotic Arm</h3>
-        <p>Automated pick-and-place using camera-based object detection.</p>
-
-        <div class="diagram">
-            Camera → Detection → Coordinate Mapping → Arm Movement → Pick/Place
-        </div>
-
-        <p><b>Tech:</b> OpenCV, Python</p>
-        <p><b>Result:</b> Accurate object handling</p>
+    <!-- PHOTO -->
+    <div class="card" style="text-align:center;">
+      <img
+        src="Assets/naman.jpg"
+        alt="Naman Sharma"
+        style="width:200px;height:200px;border-radius:50%;object-fit:cover;"
+      >
+      <p style="margin-top:12px;color:var(--muted);">
+        Mechatronics Engineer<br>
+        Robotics • Vision • Automation
+      </p>
     </div>
 
-    <div class="card">
-        <h3>Offline OCR System</h3>
-        <p>Custom OCR pipeline for industrial offline text recognition.</p>
+  </div>
 
-        <div class="diagram">
-            Image → Preprocessing → Detection → CRNN Recognition → Output
-        </div>
+  <!-- ================= WHAT YOU’LL FIND ================= -->
+  <div class="section">
+    <h2>What You’ll Find Here</h2>
+    <p style="max-width:720px;">
+      Learning by building, experimenting, and understanding real-world engineering constraints.
+    </p>
+  </div>
 
-        <p><b>Tech:</b> Python, Deep Learning</p>
-        <p><b>Result:</b> Offline text extraction</p>
+  <!-- ================= TOOLS & STACK ================= -->
+  <div class="section">
+    <h2>Tools & Technology Stack</h2>
+
+    <div class="grid">
+
+      <div class="card flow green">
+        <h3>Computer Vision</h3>
+        <p>
+          OpenCV · PaddleOCR · Image preprocessing ·
+          ROI-based pipelines · Deterministic inspection logic
+        </p>
+      </div>
+
+      <div class="card flow">
+        <h3>Robotics</h3>
+        <p>
+          ROS2 · Gazebo · URDF · Robot kinematics ·
+          Node-based system architecture
+        </p>
+      </div>
+
+      <div class="card flow purple">
+        <h3>Automation & Integration</h3>
+        <p>
+          PLC-style logic · OK/NG signaling ·
+          Vision-to-automation handshakes
+        </p>
+      </div>
+
+      <div class="card flow">
+        <h3>Embedded & Compute</h3>
+        <p>
+          Jetson · Raspberry Pi · Linux ·Arduino·
+          Hardware–software integration
+        </p>
+      </div>
+
+      <div class="card flow green">
+        <h3>Programming</h3>
+        <p>
+          Python · C++ (working knowledge for robotics systems) ·
+          Modular design · Debugging
+        </p>
+      </div>
+
+      <div class="card flow purple">
+        <h3>Engineering Practices</h3>
+        <p>
+          Git · Version control · Logging ·
+          Deterministic & maintainable system design
+        </p>
+      </div>
+
     </div>
+  </div>
 
-</section>
+  <!-- ================= PROOF ================= -->
+  <div class="section">
+    <h2>See It in Action</h2>
 
-<!-- SKILLS -->
-<section class="section fade">
-    <h2>Skills</h2>
-    <div class="card">
-        ROS2 • SLAM • OpenCV • Python • C++ • Gazebo • RViz
+    <div class="grid">
+
+      <a href="vision.html" class="card flow green">
+        📂 Projects <br>
+        <span style="color:var(--muted);font-size:14px;">
+           Status: Portfolio documents academic projects and ongoing industrial learning. Some systems are prototypes or simulators.
+          
+        </span>
+      </a>
+
+      <a href="simulator.html" class="card flow">
+        🧪 Inspection Simulator<br>
+        <span style="color:var(--muted);font-size:14px;">
+          Factory-style dashboard, decision flow & OK/NG logic
+        </span>
+      </a>
+
+     <!-- <a href="walkthrough.html" class="card flow purple">
+        🎥 Video Introduction <br>
+        <span style="color:var(--muted);font-size:14px;">
+          An introduction to my journey, skills, and interests
+        </span>
+      </a>-->
+
     </div>
-</section>
+  </div>
 
-<!-- CONTACT -->
-<section class="section fade">
-    <h2>Contact</h2>
-    <div class="card">
-        <p>Email: your-email@example.com</p>
-        <p>GitHub: github.com/naman2328</p>
-        <p>LinkedIn: your-link</p>
-    </div>
-</section>
+  <!-- ================= ABOUT ================= -->
+  <div class="section card">
+    <h2>About Me</h2>
+    <p>
+      I enjoy building end-to-end systems where hardware meets software —
+      from perception and decision logic to operator-facing interfaces.
+      My focus is on reliability, clarity, and real-world constraints.
+    </p>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <div class="section" style="margin-top:80px;">
+    <p style="color:var(--muted);">
+      📄 <a href="Assets/Naman Sharmaresume.pdf" target="_blank">Resume</a>
+    </p>
+  </div>
 
 </div>
-
-<footer>
-    Built by Naman Sharma
-</footer>
-
-<script>
-const fades = document.querySelectorAll('.fade');
-
-window.addEventListener('scroll', () => {
-    fades.forEach(el => {
-        const rect = el.getBoundingClientRect().top;
-        if(rect < window.innerHeight - 100){
-            el.classList.add('show');
-        }
-    });
-});
-</script>
 
 </body>
 </html>
