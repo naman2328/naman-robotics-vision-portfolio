@@ -1,0 +1,11 @@
+moviepy
+gtts
+pillow
+pyyaml
+tqdm
+diffusers
+transformers
+accelerate
+torch
+opencv-python
+google-api-python-client
