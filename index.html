@@ -1350,101 +1350,6 @@ footer {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-
-/* --- Added Video Avatar & HUD Styles --- */
-.profile-frame {
-  position: relative;
-  overflow: hidden;
-}
-
-.profile-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: inherit;
-  filter: brightness(1.1) contrast(1.2) saturate(1.3) hue-rotate(-10deg);
-  transition: filter 0.3s ease, transform 0.3s ease;
-}
-
-.profile-frame:hover .profile-video {
-  filter: none;
-  transform: scale(1.05);
-}
-
-.hud-overlay {
-  position: absolute;
-  inset: 8px;
-  border-radius: 999px;
-  pointer-events: none;
-  z-index: 5;
-  overflow: hidden;
-}
-
-.bounding-box {
-  position: absolute;
-  top: 25%;
-  left: 20%;
-  width: 60%;
-  height: 55%;
-  border: 1.5px solid var(--green);
-  box-shadow: 0 0 10px rgba(0, 240, 145, 0.4);
-  animation: track-box 5s ease-in-out infinite alternate;
-}
-
-.box-label {
-  position: absolute;
-  top: -16px;
-  left: -1px;
-  background: var(--green);
-  color: #060912;
-  font-family: var(--font-mono);
-  font-size: 8px;
-  font-weight: bold;
-  padding: 1px 4px;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.corner-marker {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border: 2px solid var(--cyan);
-}
-.top-left { top: 12%; left: 12%; border-right: 0; border-bottom: 0; }
-.top-right { top: 12%; right: 12%; border-left: 0; border-bottom: 0; }
-.bottom-left { bottom: 12%; left: 12%; border-right: 0; border-top: 0; }
-.bottom-right { bottom: 12%; right: 12%; border-left: 0; border-top: 0; }
-
-.scanline {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-  box-shadow: 0 0 8px var(--cyan);
-  animation: scan-pulse 3s linear infinite;
-}
-
-@keyframes scan-pulse {
-  0% { top: 0%; opacity: 0; }
-  10% { opacity: 0.8; }
-  90% { opacity: 0.8; }
-  100% { top: 100%; opacity: 0; }
-}
-
-@keyframes track-box {
-  0% {
-    transform: translate(-3px, -2px) scale(0.96);
-  }
-  50% {
-    transform: translate(2px, 3px) scale(1.02);
-  }
-  100% {
-    transform: translate(-1px, 1px) scale(0.98);
-  }
-}
 </style>
 </head>
 <body>
@@ -1459,7 +1364,7 @@ footer {
       <li><a href="#experience">Experience</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a href="Assets/Resume_naman.pdf" class="nav-cta" target="_blank" rel="noreferrer">Resume</a>
+    <a href="Assets/Resume_naman.pdff" class="nav-cta" target="_blank" rel="noreferrer">Resume</a>
   </nav>
 
   <main>
@@ -1508,20 +1413,7 @@ footer {
             <div class="target-ring" aria-hidden="true"></div>
             <div class="profile-frame">
               <div class="profile-initials" aria-hidden="true">NS</div>
-              <video class="profile-video" autoplay loop muted playsinline>
-                <source src="Assets/avatar.mp4" type="video/mp4">
-                <source src="Assets/avatar.webm" type="video/webm">
-              </video>
-              <div class="hud-overlay">
-                <div class="scanline"></div>
-                <div class="bounding-box">
-                  <span class="box-label">class: engineer [99.8%]</span>
-                </div>
-                <div class="corner-marker top-left"></div>
-                <div class="corner-marker top-right"></div>
-                <div class="corner-marker bottom-left"></div>
-                <div class="corner-marker bottom-right"></div>
-              </div>
+              <img class="profile-photo" src="Assets/profile.jpg" alt="Naman Sharma profile photo" onerror="this.remove()">
               <div class="profile-tag">Robotics Engineer</div>
             </div>
             <div class="robot-node node-a">Camera<br>Input</div>
@@ -1588,7 +1480,8 @@ footer {
           <h2>Projects with real constraints</h2>
         </div>
         <p class="section-note">
-          A curated collection of hardware and software projects demonstrating modular design, edge deployment, and rigorous testing under physical constraints.
+          A cleaner project section from the current site, upgraded with the stronger visual rhythm
+          and filtering from the experimental version.
         </p>
       </div>
 
@@ -1725,7 +1618,8 @@ footer {
           <h2>Tools I use to build</h2>
         </div>
         <p class="section-note">
-          An overview of my core technical stack, engineering proficiencies, and specialized tools for robotics and computer vision workflows.
+          Replaces vague skill percentages with proof-oriented capabilities, while keeping
+          the orbit visual energy from the larger concept.
         </p>
       </div>
 
@@ -1844,7 +1738,8 @@ footer {
           <h2>Engineer who builds past the demo</h2>
         </div>
         <p class="section-note">
-          Mechatronics background combined with hands-on industrial quality control and manufacturing workflows.
+          This keeps the current page's clean story, but sharpens the emphasis on real hardware,
+          industrial constraints, and reliability.
         </p>
       </div>
 
@@ -1895,7 +1790,8 @@ footer {
           <h2>Proof beyond the project cards</h2>
         </div>
         <p class="section-note">
-          Industrial training, academic foundation, and hands-on projects showing growth and technical ownership.
+          A fuller section inspired by the reference portfolio's experience, certifications,
+          and activity blocks, but centered on your robotics and industrial vision story.
         </p>
       </div>
 
@@ -1965,7 +1861,8 @@ footer {
         <div class="experience-meta">GitHub Activity Style</div>
         <h3>Building, testing, documenting, repeating</h3>
         <p class="section-note">
-          Continuous integration, version control best practices, and structured documentation workflows.
+          Use this area like the reference portfolio's activity section. Once hosted, you can replace
+          these bars with a live GitHub contribution widget or keep it as a clean visual activity block.
         </p>
         <div class="github-bars" aria-hidden="true">
           <span class="l1"></span><span class="l2"></span><span></span><span class="l3"></span><span class="l1"></span><span class="l2"></span><span class="l3"></span>
